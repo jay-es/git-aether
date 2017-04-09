@@ -1,0 +1,64 @@
+<template>
+  <div>
+    <create-branch
+      ref="createBranch"
+      :row="tableData[rowIndex]"
+    ></create-branch>
+    <merge-branch
+      ref="mergeBranch"
+      :row="tableData[rowIndex]"
+      :branch-name="branchName"
+    ></merge-branch>
+    <rename-branch
+      ref="renameBranch"
+      :row="tableData[rowIndex]"
+      :branch-name="branchName"
+    ></rename-branch>
+  </div>
+</template>
+
+<script>
+  import eventHub from './scripts/eventHub';
+  import store from './scripts/store';
+  import CreateBranch from './Dialogs/CreateBranch';
+  import MergeBranch from './Dialogs/MergeBranch';
+  import RenameBranch from './Dialogs/RenameBranch';
+
+  export default {
+    computed: {
+      tableData() { return store.tableData; },
+    },
+    components: {
+      CreateBranch,
+      MergeBranch,
+      RenameBranch,
+    },
+    data() {
+      return {
+        rowIndex: 0,
+        branchName: '',
+      };
+    },
+    methods: {
+      createBranch(rowIndex) {
+        this.rowIndex = rowIndex;
+        this.$refs.createBranch.$el.showModal();
+      },
+      mergeBranch(rowIndex, branchName) {
+        this.rowIndex = rowIndex;
+        this.branchName = branchName;
+        this.$refs.mergeBranch.$el.showModal();
+      },
+      renameBranch(rowIndex, branchName) {
+        this.rowIndex = rowIndex;
+        this.branchName = branchName;
+        this.$refs.renameBranch.$el.showModal();
+      },
+    },
+    created() {
+      eventHub.on('createBranch', this.createBranch);
+      eventHub.on('mergeBranch', this.mergeBranch);
+      eventHub.on('renameBranch', this.renameBranch);
+    },
+  };
+</script>

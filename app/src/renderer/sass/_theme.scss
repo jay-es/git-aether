@@ -1,0 +1,47 @@
+$accColor: #4d89c1;
+%bgColor { background-color: #f8f8f8; }
+%fontColor { color: #333; }
+%fontColor-deep { color: #111; }
+%borderColor { border-color: #e5e5e5; }
+%linkColor { color: $accColor; }
+%linkColor:hover { color: #2061a1; }
+%linkColor:active { color: darken(#2061a1, 10%); }
+
+%input-bgColor { background-color: darken(#fff, 0%); }
+%input-border { border: 1px solid darken(#e5e5e5, 10%); }
+%radio-border { border: 1px solid $accColor; }
+%radio-checkedBg { background-color: $accColor; }
+%btn { color: $accColor; background-color: transparent; }
+%btn:not(:disabled):hover { background-color: rgba($accColor, .1); }
+
+%diff-fontColor-del { color: #740000; }
+%diff-fontColor-ins { color: #001e00; }
+%diff-bgColor-del { background-color: #ffecec; }
+%diff-bgColor-ins { background-color: #eaffea; }
+%diff-bgColor-del-word { background-color: #f8cbcb; }
+%diff-bgColor-ins-word { background-color: #a6f3a6; }
+
+.dark {
+  $accColor: #4ea6ea;
+  %bgColor { background-color: #252525; }
+  %fontColor { color: #ccc; }
+  %fontColor-deep { color: #eee; }
+  %borderColor { border-color: #3f3f3f; }
+  %linkColor { color: $accColor; }
+  %linkColor-hover { color: #4d89c1; }
+  %linkColor-active { color: darken(#4d89c1, 10%); }
+  
+  %input-bgColor { background-color: darken(#252525, 5%); }
+  %input-border { border: 1px solid darken(#3f3f3f, 5%); }
+  %radio-border { border: 1px solid $accColor; }
+  %radio-checkedBg { background-color: $accColor; }
+  %btn { color: $accColor; background-color: transparent; }
+  %btn:not(:disabled):hover { background-color: rgba($accColor, .1); }
+
+  %diff-fontColor-del { color: #cc3e22; }
+  %diff-fontColor-ins { color: #2c2; }
+  %diff-bgColor-del { background-color: inherit; }
+  %diff-bgColor-ins { background-color: inherit; }
+  %diff-bgColor-del-word { background-color: #511919; }
+  %diff-bgColor-ins-word { background-color: #294c12; }
+}

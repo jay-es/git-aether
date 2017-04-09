@@ -1,0 +1,70 @@
+.repos-table {
+  $padding: 4px 8px;
+  $negativeMargin: -4px -8px;
+  $maxHeight: 5.9em;
+  
+  width: 100%;
+  border-collapse: collapse;
+  line-height: 1.1;
+
+  > thead {
+    white-space: nowrap;
+  }
+
+  > tbody tr {
+    vertical-align: top;
+  }
+
+  th {
+    font-weight: 600;
+    // text-align: left;
+  }
+
+  th, td {
+    @extend %borderColor;
+    border-style: solid;
+    border-width: 1px 0;
+    padding: $padding;
+
+    &:last-child {
+      // display: none;
+    }
+  }
+
+  .list,
+  .fetch-log {
+    margin: $negativeMargin;
+    padding: $padding;
+    height: $maxHeight;
+    overflow-y: auto;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: hsla(0, 0, 50, .1);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: hsla(0, 0, 60, .4);
+    border-radius: 3px;
+  }
+}
+
+.local-branch-list > li {
+  &.is-current {
+    @extend %fontColor-deep;
+    font-weight: 600;
+    text-decoration: underline;
+  }
+  &:not(.is-current) {
+    cursor: pointer;
+  }
+  &:hover {
+    @extend %fontColor-deep;
+  }
+}
+
+.fetch-log {
+  min-width: 12em;
+}
