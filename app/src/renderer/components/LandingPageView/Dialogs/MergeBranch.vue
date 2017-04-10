@@ -1,5 +1,5 @@
 <template>
-  <dialog @click.self="backdrop">
+  <dialog @click.self="backdrop" @keyup.enter="exec">
     <fieldset class="fieldset">
       <legend class="legend">Current Branch</legend>
       {{ branchName}}
@@ -29,7 +29,7 @@
 
     <div class="dialog-footer">
       <button @click="closeDialog">Cancel</button>
-      <button @click="exec" :disabled="canExec">Merge</button>
+      <button @click="exec">Merge</button>
     </div>
   </dialog>
 </template>
@@ -51,9 +51,6 @@
       return Object.assign({}, initialData);
     },
     computed: {
-      canExec() {
-        return this.branchName === this.targetBranch;
-      },
       isLocal() {
         return this.targetBranch.split('/').length === 1;
       },

@@ -1,5 +1,5 @@
 <template>
-  <dialog @click.self="backdrop">
+  <dialog @click.self="backdrop" @keyup.enter="canExec && exec()">
     <fieldset class="fieldset">
       <legend class="legend">Branch Name</legend>
       <label class="label">
@@ -36,7 +36,7 @@
     <div class="dialog-footer">
       <span v-show="isAlreadyExists">A branch named '{{ newBranchName }}' already exists.</span>
       <button @click="closeDialog">Cancel</button>
-      <button @click="exec" :disabled="canExec">Create</button>
+      <button @click="exec" :disabled="!canExec">Create</button>
     </div>
   </dialog>
 </template>
@@ -70,7 +70,7 @@
     },
     computed: {
       canExec() {
-        return !this.newBranchName || this.isAlreadyExists;
+        return this.newBranchName && !this.isAlreadyExists;
       },
       isAlreadyExists() {
         return this.row.localBranches.some(v => v.name === this.newBranchName);
