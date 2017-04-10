@@ -106,7 +106,7 @@
           },
           {
             label: `Pull (origin/${branch.name})`,
-            enabled: branch.current && !!sameNameRemote && !this.row.hasDiff,
+            enabled: branch.current && !!sameNameRemote,
             click: () => {
               listClass.add('is-processing');
 
@@ -126,7 +126,7 @@
           },
           {
             label: 'Merge',
-            enabled: branch.current && !this.row.hasDiff,
+            enabled: branch.current,
             click: () => {
               eventHub.emit('mergeBranch', this.row.index, branch.name);
             },
