@@ -3,7 +3,7 @@
     <thead>
       <th>Path</th>
       <th>Local Branches</th>
-      <th>Tracking Branches</th>
+      <th>Remote-Tracking Branches</th>
       <th>Commands</th>
       <th>Log</th>
     </thead>
