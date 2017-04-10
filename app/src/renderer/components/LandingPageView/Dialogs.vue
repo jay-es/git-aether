@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="tableData.length">
     <create-branch
       ref="createBranch"
       :row="tableData[rowIndex]"

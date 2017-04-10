@@ -14,7 +14,7 @@ const emptyData = {
 
 export default new Vue({
   data: {
-    tableData: [emptyData],
+    tableData: [],
   },
   methods: {
     /**
