@@ -5,7 +5,7 @@
       <th>Local Branches</th>
       <th>Tracking Branches</th>
       <th>Commands</th>
-      <th>Fetch Log</th>
+      <th>Log</th>
     </thead>
     <tbody>
       <tr v-for="(row, rowIndex) in tableData">
@@ -37,7 +37,7 @@
           <pre class="fetch-log"
             :class="{'is-processing': row.isFetching}"
             @click="fetch(rowIndex)"
-          >{{ row.fetchLog }}</pre>
+          >{{ row.logText }}</pre>
         </td>
       </tr>
     </tbody>

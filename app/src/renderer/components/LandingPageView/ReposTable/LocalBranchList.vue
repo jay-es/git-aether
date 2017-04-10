@@ -118,6 +118,8 @@
                   return;
                 }
 
+                this.row.logText = update.summary;
+
                 if (update && update.summary.changes) {
                   this.$emit('update');
                 }

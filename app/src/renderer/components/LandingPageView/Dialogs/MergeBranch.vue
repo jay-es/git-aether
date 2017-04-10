@@ -94,10 +94,7 @@
                 return;
               }
 
-              dialog.showMessageBox({
-                type: 'info',
-                message: result,
-              });
+              this.row.logText = result;
 
               this.closeDialog();
             });

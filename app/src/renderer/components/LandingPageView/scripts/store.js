@@ -8,7 +8,7 @@ const emptyData = {
   hasDiff: false,
   localBranches: [],
   trackingBranches: [],
-  fetchLog: '',
+  logText: '',
   isFetching: false,
 };
 
@@ -127,14 +127,14 @@ export default new Vue({
     fetch(i) {
       return new Promise((resolve) => {
         this.tableData[i].isFetching = true;
-        this.tableData[i].fetchLog = '';
+        this.tableData[i].logText = '';
 
         this.tableData[i].rep.fetch({
           '--all': null,
           '--prune': null,
         }, (err, sm) => {
           if (!err) {
-            this.tableData[i].fetchLog = sm.raw;
+            this.tableData[i].logText = sm.raw;
             this.getBranch(i);
           }
 
