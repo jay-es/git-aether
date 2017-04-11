@@ -9,7 +9,7 @@ let timerId = null;
 const run = () => {
   Promise.all([
     ...store.getBranchAll(),
-    ...store.diffSummaryAll(),
+    ...store.statusAll(),
     ...store.fetchAll(),
   ]);
 };

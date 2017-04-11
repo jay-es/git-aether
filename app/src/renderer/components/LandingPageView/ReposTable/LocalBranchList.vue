@@ -80,7 +80,7 @@
           },
           {
             label: 'Commit',
-            enabled: branch.current && this.row.hasDiff,
+            enabled: branch.current && this.row.hasChanges,
             click: () => {
               this.$refs.commitDialog.$el.showModal();
             },

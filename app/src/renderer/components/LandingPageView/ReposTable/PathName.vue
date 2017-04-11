@@ -13,9 +13,9 @@
     props: ['row'],
     computed: {
       changes() {
-        if (!this.row.diffSummary) return '';
+        if (!this.row.statusSummary) return '';
 
-        const num = this.row.diffSummary.files.length;
+        const num = this.row.statusSummary.files.length;
         if (num === 0) return 'no changes';
         if (num === 1) return '1 change';
         return `${num} changes`;

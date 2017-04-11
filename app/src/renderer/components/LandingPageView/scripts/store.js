@@ -4,8 +4,10 @@ const emptyData = {
   rep: null,
   index: 0,
   pathName: '',
-  diffSummary: null,
-  hasDiff: false,
+  // diffSummary: null,
+  // hasDiff: false,
+  statusSummary: null,
+  hasChanges: false,
   localBranches: [],
   trackingBranches: [],
   logText: '',
@@ -90,33 +92,33 @@ export default new Vue({
       });
     },
 
-    /**
-     * diffの有無を確認する
-     * @public
-     * @param {number} i リポジトリの番号
-     * @return {promise}
-     */
-    diffSummary(i) {
-      return new Promise((resolve) => {
-        this.tableData[i].rep.diffSummary((err, sm) => {
-          if (!err) {
-            this.tableData[i].diffSummary = sm;
-            this.tableData[i].hasDiff = !!sm.files.length;
-          }
+    // /**
+    //  * diffの有無を確認する
+    //  * @public
+    //  * @param {number} i リポジトリの番号
+    //  * @return {promise}
+    //  */
+    // diffSummary(i) {
+    //   return new Promise((resolve) => {
+    //     this.tableData[i].rep.diffSummary((err, sm) => {
+    //       if (!err) {
+    //         this.tableData[i].diffSummary = sm;
+    //         this.tableData[i].hasDiff = !!sm.files.length;
+    //       }
+    //
+    //       resolve();
+    //     });
+    //   });
+    // },
 
-          resolve();
-        });
-      });
-    },
-
-    /**
-     * 全リポジトリでdiffを実行する
-     * @public
-     * @return {promise}
-     */
-    diffSummaryAll() {
-      return this.tableData.map((v, i) => this.diffSummary(i));
-    },
+    // /**
+    //  * 全リポジトリでdiffを実行する
+    //  * @public
+    //  * @return {promise}
+    //  */
+    // diffSummaryAll() {
+    //   return this.tableData.map((v, i) => this.diffSummary(i));
+    // },
 
     /**
      * fetchしてログを更新する
@@ -159,11 +161,39 @@ export default new Vue({
         }, i * 800)
       ));
     },
+
+    /**
+     * statusを取得
+     * @public
+     * @param {number} i リポジトリの番号
+     * @return {promise}
+     */
+    status(i) {
+      return new Promise((resolve) => {
+        this.tableData[i].rep.status((err, sm) => {
+          if (!err) {
+            this.tableData[i].statusSummary = sm;
+            this.tableData[i].hasChanges = !!sm.files.length;
+          }
+
+          resolve();
+        });
+      });
+    },
+
+    /**
+     * 全リポジトリでdiffを実行する
+     * @public
+     * @return {promise}
+     */
+    statusAll() {
+      return this.tableData.map((v, i) => this.status(i));
+    },
   },
   created() {
     window.addEventListener('focus', () => {
       this.getBranchAll();
-      this.diffSummaryAll();
+      this.statusAll();
     });
   },
 });
