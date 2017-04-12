@@ -29,7 +29,7 @@
     props: ['row', 'initialValue', 'hiddenValue'],
     data() {
       return {
-        ROW_SIZE: 10,
+        ROW_SIZE: 15,
         value: '',
       };
     },
