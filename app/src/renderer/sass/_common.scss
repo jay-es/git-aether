@@ -9,11 +9,43 @@ a {
   @extend %linkColor;
   text-decoration: underline;
   cursor: pointer;
+  user-select: none;
 }
 
 // Vueを適用する要素につける
 [v-cloak] {
 	display: none;
+}
+
+// util
+.block {
+  display: block;
+}
+.inline-block {
+  display: inline-block;
+}
+.inline {
+  display: inline;
+}
+
+body {
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: hsla(0, 0, 50, .1);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: hsla(0, 0, 60, .4);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-corner {
+    background-color: hsla(0, 0, 50, .1);
+  }
+}
+
+pre, code {
+  font-family: Consolas, monospace;
 }
 
 .list {

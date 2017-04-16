@@ -17,7 +17,7 @@ const router = new Router({
 });
 
 /* eslint-disable no-new */
-new Vue({
+export default new Vue({
   router,
   ...App,
 }).$mount('#app');

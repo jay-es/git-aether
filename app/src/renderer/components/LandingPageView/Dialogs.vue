@@ -60,5 +60,10 @@
       eventHub.on('mergeBranch', this.mergeBranch);
       eventHub.on('renameBranch', this.renameBranch);
     },
+    destroyed() {
+      eventHub.removeListener('createBranch', this.createBranch);
+      eventHub.removeListener('mergeBranch', this.mergeBranch);
+      eventHub.removeListener('renameBranch', this.renameBranch);
+    },
   };
 </script>

@@ -4,6 +4,7 @@ const { Menu, dialog } = remote;
 
 import repos from './components/LandingPageView/scripts/repos';
 import sync from './components/LandingPageView/scripts/sync';
+import main from './main';
 
 
 const appMenu = Menu.buildFromTemplate([
@@ -59,6 +60,25 @@ const appMenu = Menu.buildFromTemplate([
           const isChecked = localStorage.getItem('dark') === 'true';
           return document.documentElement.classList.toggle('dark', isChecked);
         })(),
+      },
+    ],
+  },
+  {
+    label: 'History',
+    submenu: [
+      {
+        label: 'Back',
+        accelerator: 'Alt+Left',
+        click() {
+          main.$router.go(-1);
+        },
+      },
+      {
+        label: 'Forward',
+        accelerator: 'Alt+Right',
+        click() {
+          main.$router.go(1);
+        },
       },
     ],
   },

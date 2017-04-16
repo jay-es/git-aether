@@ -37,10 +37,7 @@
       checkout(branch) {
         if (branch.current) return;
         this.row.rep.checkout(branch.name, (err) => {
-          if (err) {
-            dialog.showErrorBox('', err);
-            return;
-          }
+          if (err) { dialog.showErrorBox('', err); return; }
 
           this.$emit('update');
         });
@@ -58,34 +55,6 @@
 
         Menu.buildFromTemplate([
           // カレント
-  /*
-          {
-            label: 'Diff',
-            click: () => {
-              const win = new BrowserWindow({
-                parent: BrowserWindow.getFocusedWindow(),
-                modal: true,
-                width: 1024,
-                height: 800,
-              });
-              win.webContents.openDevTools();
-              // win.setMenu(null);
-
-              win.webContents.on('dom-ready', () => {
-                win.webContents.send('childWin', this.row.rep._baseDir);
-              });
-
-              win.loadURL(`file://${__dirname}/../../../html/diff.html`);
-            },
-          },
-          {
-            label: 'Commit',
-            enabled: branch.current && this.row.hasChanges,
-            click: () => {
-              this.$refs.commitDialog.$el.showModal();
-            },
-          },
-  */
           {
             label: `Push (origin/${branch.name})`,
             enabled: branch.current,
@@ -95,10 +64,7 @@
               this.row.rep.push('origin', branch.name, (err) => {
                 listClass.remove('is-processing');
 
-                if (err) {
-                  dialog.showErrorBox('', err);
-                  return;
-                }
+                if (err) { dialog.showErrorBox('', err); return; }
 
                 this.$emit('update');
               });
@@ -113,10 +79,7 @@
               this.row.rep.pull('origin', branch.name, (err, update) => {
                 listClass.remove('is-processing');
 
-                if (err) {
-                  dialog.showErrorBox('', err);
-                  return;
-                }
+                if (err) { dialog.showErrorBox('', err); return; }
 
                 this.row.logText = update.summary;
 
@@ -151,18 +114,13 @@
               listClass.add('is-processing');
 
               this.row.rep.fetch({ '--all': null }, (err) => {
-                if (err) {
-                  dialog.showErrorBox('', err);
-                }
+                if (err) { dialog.showErrorBox('', err); return; }
               })
               .then(() => {
                 this.row.rep.deleteLocalBranch(branch.name, (err) => {
                   listClass.remove('is-processing');
 
-                  if (err) {
-                    dialog.showErrorBox('', err);
-                    return;
-                  }
+                  if (err) { dialog.showErrorBox('', err); return; }
 
                   this.$emit('update');
                 });

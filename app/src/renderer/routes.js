@@ -5,6 +5,12 @@ export default [
     component: require('components/LandingPageView'),
   },
   {
+    path: '/diff/:rowIndex',
+    name: 'diff-page',
+    component: require('components/DiffView'),
+    props: true,
+  },
+  {
     path: '*',
     redirect: '/',
   },

@@ -1,7 +1,12 @@
 <template>
   <div @contextmenu="menu">
     {{ row.pathName }}<br>
-    <p>{{ changes }}</p>
+    <p v-if="changesNum">
+      <router-link :to="linkTo">{{ changesText }}</router-link>
+    </p>
+    <p v-else>
+      {{ changesText }}
+    </p>
   </div>
 </template>
 
@@ -12,13 +17,16 @@
   export default {
     props: ['row'],
     computed: {
-      changes() {
-        if (!this.row.statusSummary) return '';
-
-        const num = this.row.statusSummary.files.length;
-        if (num === 0) return 'no changes';
-        if (num === 1) return '1 change';
-        return `${num} changes`;
+      changesNum() {
+        return this.row.statusSummary ? this.row.statusSummary.files.length : 0;
+      },
+      changesText() {
+        if (this.changesNum === 0) return 'no changes';
+        if (this.changesNum === 1) return '1 change';
+        return `${this.changesNum} changes`;
+      },
+      linkTo() {
+        return `/diff/${this.row.index}`;
       },
     },
     methods: {

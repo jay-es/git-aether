@@ -47,10 +47,7 @@
           this.branchName,
           this.newName,
         ], (err) => {
-          if (err) {
-            dialog.showErrorBox('', err);
-            return;
-          }
+          if (err) { dialog.showErrorBox('', err); return; }
 
           store.getBranch(this.row.index);
           this.closeDialog();

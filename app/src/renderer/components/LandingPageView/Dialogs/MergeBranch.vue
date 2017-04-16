@@ -77,22 +77,16 @@
 
             const split = this.targetBranch.split('/');
             return this.row.rep.fetch(split[0], split[1], (err) => {
-              if (err) {
-                dialog.showErrorBox('', err);
-              }
+              if (err) { dialog.showErrorBox('', err); return; }
             });
           })
           .then(() => {
             this.row.rep.merge(options, (err, result) => {
               this.$el.classList.remove('is-processing');
 
-              if (err) {
-                dialog.showErrorBox('', err);
-                return;
-              }
+              if (err) { dialog.showErrorBox('', err); return; }
 
               this.row.logText = result;
-
               this.closeDialog();
             });
           });

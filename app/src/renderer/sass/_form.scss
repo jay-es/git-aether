@@ -11,8 +11,13 @@
 
 .label {
   user-select: none;
+  cursor: pointer;
 
-  & + & {
+  &.block {
+    margin: .25em 0;
+  }
+
+  & + &:not(.block) {
     margin-left: 1em;
   }
 }
@@ -25,13 +30,15 @@
 }
 
 .input,
-.select {
+.select,
+.textarea {
   padding: .25em .5em;
   @extend %input-bgColor;
   @extend %input-border;
   @extend %fontColor;
 }
-.input {
+.input,
+.textarea {
   border-radius: 2px;
 }
 
@@ -88,4 +95,9 @@ button {
   border-radius: 4px;
   background-color: transparent;
   cursor: pointer;
+
+  &.block {
+    text-align: center;
+    width: 100%;
+  }
 }

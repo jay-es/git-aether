@@ -1,5 +1,5 @@
 $accColor: #4d89c1;
-%bgColor { background-color: #f8f8f8; }
+%bgColor { background-color: #fafafa; }
 %fontColor { color: #333; }
 %fontColor-deep { color: #111; }
 %borderColor { border-color: #e5e5e5; }
@@ -13,9 +13,11 @@ $accColor: #4d89c1;
 %radio-checkedBg { background-color: $accColor; }
 %btn { color: $accColor; background-color: transparent; }
 %btn:not(:disabled):hover { background-color: rgba($accColor, .1); }
+%btn:not(:disabled):active { color: desaturate(darken($accColor, 10%), 30%); background-color: rgba($accColor, .05); }
 
 %diff-fontColor-del { color: #740000; }
 %diff-fontColor-ins { color: #001e00; }
+%diff-bgColor { background-color: #fff; }
 %diff-bgColor-del { background-color: #ffecec; }
 %diff-bgColor-ins { background-color: #eaffea; }
 %diff-bgColor-del-word { background-color: #f8cbcb; }
@@ -28,18 +30,20 @@ $accColor: #4d89c1;
   %fontColor-deep { color: #eee; }
   %borderColor { border-color: #3f3f3f; }
   %linkColor { color: $accColor; }
-  %linkColor-hover { color: #4d89c1; }
-  %linkColor-active { color: darken(#4d89c1, 10%); }
-  
+  %linkColor:hover { color: desaturate(darken($accColor, 10%), 30%); }
+  %linkColor:active { color: desaturate(darken($accColor, 20%), 30%); }
+
   %input-bgColor { background-color: darken(#252525, 5%); }
   %input-border { border: 1px solid darken(#3f3f3f, 5%); }
   %radio-border { border: 1px solid $accColor; }
   %radio-checkedBg { background-color: $accColor; }
   %btn { color: $accColor; background-color: transparent; }
   %btn:not(:disabled):hover { background-color: rgba($accColor, .1); }
+  %btn:not(:disabled):active { color: desaturate(darken($accColor, 10%), 30%); background-color: rgba($accColor, .05); }
 
-  %diff-fontColor-del { color: #cc3e22; }
+  %diff-fontColor-del { color: hsl(10, 100%, 57%); } // hsl(10, 71%, 47%) #cc3e22
   %diff-fontColor-ins { color: #2c2; }
+  %diff-bgColor { background-color: #191919; }
   %diff-bgColor-del { background-color: inherit; }
   %diff-bgColor-ins { background-color: inherit; }
   %diff-bgColor-del-word { background-color: #511919; }
