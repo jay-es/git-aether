@@ -45,6 +45,8 @@
         currentFile: {
           path: '',
           isCached: false,
+          isNewFile: false,
+          timestamp: 0,
         },
         hasStaged: false,
         options: {

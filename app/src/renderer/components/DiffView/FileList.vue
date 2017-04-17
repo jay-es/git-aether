@@ -53,6 +53,7 @@
         this.currentFile.path = file.path;
         this.currentFile.isCached = isCached;
         this.currentFile.isNewFile = file.index === '?';
+        this.currentFile.timestamp = Date.now();
       },
 
       menu(file, i) {
@@ -158,7 +159,10 @@
       },
     },
     created() {
-      this.$watch('row.statusSummary.files', this.getStatusAll, {
+      this.$watch('row.statusSummary.files', () => {
+        this.getStatusAll();
+        this.currentFile.timestamp = Date.now();
+      }, {
         deep: true,
         immediate: true,
       });
