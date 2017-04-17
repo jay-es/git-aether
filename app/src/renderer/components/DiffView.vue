@@ -16,6 +16,7 @@
         :options="options"
       ></options>
       <commit class="diff-view_column"
+        :current-file="currentFile"
         :row="row"
       ></commit>
     </div>

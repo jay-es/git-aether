@@ -41,6 +41,12 @@
     },
     methods: {
       generateDiff() {
+        // ファイルがなければクリア
+        if (!this.currentFile.path) {
+          this.$set(this, 'diffText', '');
+          return;
+        }
+
         // 新規ファイルの場合
         if (this.currentFile.isNewFile) {
           const filePath = `${this.row.rep._baseDir}/${this.currentFile.path}`;

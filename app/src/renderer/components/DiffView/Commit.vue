@@ -21,7 +21,7 @@
   import store from '../LandingPageView/scripts/store';
 
   export default {
-    props: ['row'],
+    props: ['currentFile', 'row'],
     data() {
       return {
         comment: '',
@@ -34,6 +34,11 @@
 
           store.status(this.row.index);
           this.comment = '';
+
+          // コミット対象がDiff表示されていたらクリア
+          if (this.currentFile.isCached) {
+            this.currentFile.path = '';
+          }
         });
       },
       push() {
