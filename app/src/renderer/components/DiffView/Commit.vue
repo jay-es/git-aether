@@ -7,7 +7,7 @@
 
     <div class="diff-view_commit_buttons">
       <button class="block"
-        :disabled="!comment"
+        :disabled="!comment || !hasStaged"
         @click="commit"
       >Commit</button>
       <button class="block" @click="push">Push</button>
@@ -21,7 +21,7 @@
   import store from '../LandingPageView/scripts/store';
 
   export default {
-    props: ['currentFile', 'row'],
+    props: ['currentFile', 'hasStaged', 'row'],
     data() {
       return {
         comment: '',

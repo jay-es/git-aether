@@ -4,6 +4,7 @@
       <file-list class="diff-view_column"
         :current-file="currentFile"
         :row="row"
+        @changeStaged="v => hasStaged = v"
       ></file-list>
       <screen class="diff-view_column"
         :current-file="currentFile"
@@ -17,6 +18,7 @@
       ></options>
       <commit class="diff-view_column"
         :current-file="currentFile"
+        :has-staged="hasStaged"
         :row="row"
       ></commit>
     </div>
@@ -44,6 +46,7 @@
           path: '',
           isCached: false,
         },
+        hasStaged: false,
         options: {
           ignoreWhitespace: '',
           tabSize: 4,

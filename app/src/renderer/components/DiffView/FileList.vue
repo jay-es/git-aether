@@ -162,6 +162,12 @@
         deep: true,
         immediate: true,
       });
+      this.$watch('files', () => {
+        this.$emit('changeStaged', this.files.some(v => v.hasStaged));
+      }, {
+        deep: true,
+        immediate: true,
+      });
     },
   };
 </script>
