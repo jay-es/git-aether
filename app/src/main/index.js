@@ -13,6 +13,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
     height: isDev ? 960 : 600,
+    show: false,
   });
 
   mainWindow.loadURL(winURL);
