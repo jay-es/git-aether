@@ -1,9 +1,9 @@
 <template>
-  <pre class="diff-view_screen" :class="tabClass" ref="screen">
+  <div class="diff-view_screen" :class="tabClass" ref="screen">
     <div v-for="line of diffLines">
       <code class="diff-line" :class="line.className">{{ line.text }}</code>
     </div>
-  </pre>
+  </div>
 </template>
 
 <script>
@@ -115,6 +115,7 @@
   display: table-cell;
   margin: 0;
   padding: 0 .5em;
+  white-space: pre;
 
   &.ins {
     @extend %diff-bgColor-ins;
