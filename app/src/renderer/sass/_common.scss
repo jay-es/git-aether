@@ -1,8 +1,10 @@
+* {
+  font-family: 'Segoe UI', sans-serif;
+}
 body {
   @extend %bgColor;
   @extend %fontColor;
   font-size: 13px;
-  font-family: 'Segoe UI', sans-serif;
 }
 
 a {

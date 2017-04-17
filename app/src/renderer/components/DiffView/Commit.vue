@@ -74,7 +74,7 @@
   padding-left: .25em;
 
   button {
-    padding-top: 6px;
+    padding-top: 4px;
     padding-bottom: 6px;
   }
 }
