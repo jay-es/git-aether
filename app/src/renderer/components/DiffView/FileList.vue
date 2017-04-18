@@ -247,7 +247,7 @@
   text-overflow: ellipsis;
 }
 .file-name {
-  font-weight: 600;
+  font-weight: 500;
   white-space: nowrap;
 }
 

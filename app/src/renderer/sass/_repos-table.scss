@@ -16,8 +16,7 @@
   }
 
   th {
-    font-weight: 600;
-    // text-align: left;
+    font-weight: 500;
   }
 
   th, td {
@@ -25,10 +24,6 @@
     border-style: solid;
     border-width: 1px 0;
     padding: $padding;
-
-    &:last-child {
-      // display: none;
-    }
   }
 
   .list,
@@ -43,7 +38,7 @@
 .local-branch-list > li {
   &.is-current {
     @extend %fontColor-deep;
-    font-weight: 600;
+    font-weight: 500;
     text-decoration: underline;
   }
   &:not(.is-current) {
