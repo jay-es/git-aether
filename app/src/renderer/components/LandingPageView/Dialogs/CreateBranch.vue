@@ -3,12 +3,12 @@
     <fieldset class="fieldset">
       <legend class="legend">Branch Name</legend>
       <label class="label">
-        <input type="radio" class="radio" value="manual" v-model="nameType" />
-        Name: <input type="text" class="input" v-model="newBranchName" :disabled="nameType === 'auto'" />
-      </label>
-      <label class="label">
         <input type="radio" class="radio" value="auto" v-model="nameType" />
         Match Tracking Branch Name
+      </label>
+      <label class="label">
+        <input type="radio" class="radio" value="manual" v-model="nameType" />
+        Name: <input type="text" class="input CreateBramch_input" v-model="newBranchName" :disabled="nameType === 'auto'" />
       </label>
     </fieldset>
 
@@ -121,3 +121,9 @@
     },
   };
 </script>
+
+<style lang="scss">
+.CreateBramch_input {
+  width: 25em;
+}
+</style>
