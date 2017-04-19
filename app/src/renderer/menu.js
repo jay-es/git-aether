@@ -87,15 +87,20 @@ const appMenu = Menu.buildFromTemplate([
 Menu.setApplicationMenu(appMenu);
 
 
+// テキスト入力
 const contextMenu = Menu.buildFromTemplate([
   { role: 'cut' },
   { role: 'copy' },
   { role: 'paste' },
   { role: 'delete' },
 ]);
+
 document.addEventListener('contextmenu', (e) => {
   const el = e.target;
-  if (el.classList.contains('input') && !el.disabled) {
+
+  if (el.disabled) return;
+
+  if (el.classList.contains('input') || el.classList.contains('textarea')) {
     contextMenu.popup();
   }
 });
