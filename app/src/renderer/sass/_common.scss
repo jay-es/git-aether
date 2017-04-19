@@ -1,5 +1,6 @@
 * {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Helvetica Neue', 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 body {
   @extend %bgColor;
@@ -47,7 +48,7 @@ body {
 }
 
 pre, code {
-  font-family: Consolas, monospace;
+  font-family: Menlo, Consolas, monospace;
 }
 
 .list {
@@ -107,4 +108,3 @@ dialog {
     }
   }
 }
-
