@@ -9,7 +9,7 @@ export default (file, i, that) => {
         dialog.showMessageBox({
           type: 'question',
           message: 'Reset changes?',
-          detail: 'Continue with resetting the current changes?',
+          detail: `${file.path}\n\nContinue with resetting the current changes?`,
           buttons: ['Yes', 'No'],
         }, (res) => {
           // No なら終了
