@@ -35,7 +35,7 @@
 </template>
 
 <script>
-  import { closeDialog, backdrop } from './helper';
+  import { backdrop, closeDialog, openDialog } from './helper';
   import BranchList from './BranchList';
   const { dialog } = require('electron').remote;
 
@@ -61,6 +61,7 @@
     methods: {
       backdrop,
       closeDialog,
+      openDialog,
       exec() {
         const options = [this.targetBranch];
 

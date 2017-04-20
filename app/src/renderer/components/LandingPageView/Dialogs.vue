@@ -42,17 +42,17 @@
     methods: {
       createBranch(rowIndex) {
         this.rowIndex = rowIndex;
-        this.$refs.createBranch.$el.showModal();
+        this.$refs.createBranch.openDialog();
       },
       mergeBranch(rowIndex, branchName) {
         this.rowIndex = rowIndex;
         this.branchName = branchName;
-        this.$refs.mergeBranch.$el.showModal();
+        this.$refs.mergeBranch.openDialog();
       },
       renameBranch(rowIndex, branchName) {
         this.rowIndex = rowIndex;
         this.branchName = branchName;
-        this.$refs.renameBranch.$el.showModal();
+        this.$refs.renameBranch.openDialog();
       },
     },
     created() {

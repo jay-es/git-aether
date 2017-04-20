@@ -22,7 +22,7 @@
 
 <script>
   import store from '../scripts/store';
-  import { closeDialog, backdrop } from './helper';
+  import { backdrop, closeDialog, openDialog } from './helper';
   const { dialog } = require('electron').remote;
 
   export default {
@@ -40,6 +40,7 @@
     methods: {
       backdrop,
       closeDialog,
+      openDialog,
       exec() {
         this.row.rep.raw([
           'branch',
