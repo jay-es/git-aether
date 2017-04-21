@@ -32,7 +32,13 @@
   import Options from './DiffView/Options';
   import FileList from './DiffView/FileList';
 
+  const options = Object.assign({
+    ignoreWhitespace: '',
+    tabSize: 4,
+  }, JSON.parse(localStorage.getItem('diffOptions')));
+
   export default {
+    name: 'diff-page',
     props: ['rowIndex'],
     components: {
       Commit,
@@ -42,6 +48,7 @@
     },
     data() {
       return {
+        options,
         currentFile: {
           path: '',
           isCached: false,
@@ -49,10 +56,6 @@
           timestamp: 0,
         },
         hasStaged: false,
-        options: {
-          ignoreWhitespace: '',
-          tabSize: 4,
-        },
       };
     },
     computed: {
@@ -60,14 +63,18 @@
         return store.tableData[this.rowIndex];
       },
     },
-    name: 'diff-page',
+    created() {
+      this.$watch('options', (v) => {
+        localStorage.setItem('diffOptions', JSON.stringify(v));
+      }, {
+        deep: true,
+      });
+    },
   };
 </script>
 
 <style lang="scss">
 .diff-view {
-  // display: flex;
-  // flex-direction: column;
   height: calc(100vh - 16px);
 }
 .diff-view_row {

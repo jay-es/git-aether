@@ -14,10 +14,10 @@
   repos.init(paths);
 
   export default {
+    name: 'landing-page',
     components: {
       ReposTable,
       Dialogs,
     },
-    name: 'landing-page',
   };
 </script>
