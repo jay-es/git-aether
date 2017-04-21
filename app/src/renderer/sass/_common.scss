@@ -2,6 +2,9 @@
   font-family: 'Helvetica Neue', 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
+html {
+  min-height: 100vh;
+}
 body {
   @extend %bgColor;
   @extend %fontColor;
