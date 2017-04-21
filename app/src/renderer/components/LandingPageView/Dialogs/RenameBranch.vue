@@ -1,5 +1,9 @@
 <template>
   <dialog @click.self="backdrop">
+    <header class="dialog-header">
+      <b>Rename Branch</b> &ndash; {{ row.pathName }}
+    </header>
+
     <div>
       <label class="label RenameBranch_label">Branch:</label>
       <select class="select RenameBranch_select">
@@ -13,10 +17,10 @@
       <input type="text" class="input RenameBranch_input" v-model="newName" @keyup.enter="exec"/>
     </div>
 
-    <div class="dialog-footer">
+    <footer class="dialog-footer">
       <button @click="closeDialog">Cancel</button>
       <button @click="exec" :disabled="canExec">Rename</button>
-    </div>
+    </footer>
   </dialog>
 </template>
 

@@ -87,6 +87,15 @@ dialog {
     }
   }
 }
+.dialog-header {
+  margin-bottom: .5em;
+  text-align: center;
+
+  b {
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
 .dialog-footer {
   margin-top: 1em;
   text-align: right;

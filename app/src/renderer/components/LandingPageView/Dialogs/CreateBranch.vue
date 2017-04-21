@@ -1,5 +1,9 @@
 <template>
   <dialog @click.self="backdrop" @keyup.enter="canExec && exec()">
+    <header class="dialog-header">
+      <b>Create Branch</b> &ndash; {{ row.pathName }}
+    </header>
+
     <fieldset class="fieldset">
       <legend class="legend">Branch Name</legend>
       <label class="label">
@@ -33,11 +37,11 @@
       </label> -->
     </fieldset>
 
-    <div class="dialog-footer">
+    <footer class="dialog-footer">
       <span v-show="isAlreadyExists">A branch named '{{ newBranchName }}' already exists.</span>
       <button @click="closeDialog">Cancel</button>
       <button @click="exec" :disabled="!canExec">Create</button>
-    </div>
+    </footer>
   </dialog>
 </template>
 

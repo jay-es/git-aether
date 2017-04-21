@@ -1,5 +1,9 @@
 <template>
   <dialog @click.self="backdrop" @keyup.enter="exec">
+    <header class="dialog-header">
+      <b>Merge</b> &ndash; {{ row.pathName }}
+    </header>
+
     <fieldset class="fieldset">
       <legend class="legend">Current Branch</legend>
       {{ branchName}}
@@ -27,10 +31,10 @@
       </label>
     </fieldset>
 
-    <div class="dialog-footer">
+    <footer class="dialog-footer">
       <button @click="closeDialog">Cancel</button>
       <button @click="exec">Merge</button>
-    </div>
+    </footer>
   </dialog>
 </template>
 
