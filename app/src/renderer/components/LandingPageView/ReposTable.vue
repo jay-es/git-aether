@@ -7,15 +7,17 @@
       <th>Commands</th>
       <th>Log</th>
     </thead>
-    <tbody>
+    <tbody :data-rows="tableData.length">
       <tr v-for="(row, rowIndex) in tableData">
         <td>
           <path-name
+            class="cell"
             :row="row"
           >
           </path-name>
         <td>
           <local-branch-list
+            class="cell"
             :row="row"
             @update="getBranch(rowIndex)"
           >
@@ -23,18 +25,21 @@
         </td>
         <td>
           <tracking-branch-list
+            class="cell"
             :row="row"
           >
           </tracking-branch-list>
         </td>
         <td>
           <command-list
+            class="cell"
             :row="row"
           >
           </command-list>
         </td>
         <td>
-          <pre class="fetch-log"
+          <pre
+            class="fetch-log cell"
             :class="{'is-processing': row.isFetching}"
             @click="fetch(rowIndex)"
           >{{ row.logText }}</pre>
@@ -62,12 +67,6 @@
       TrackingBranchList,
       CommandList,
     },
-    // mounted() {
-    //   setTimeout(() => {
-    //     this.getBranchAll();
-    //     this.fetchAll();
-    //   }, 300);
-    // },
     methods: {
       fetch: store.fetch,
       getBranch: store.getBranch,

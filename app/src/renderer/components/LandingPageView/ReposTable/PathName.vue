@@ -1,11 +1,13 @@
 <template>
   <div @contextmenu="menu">
     {{ row.pathName }}<br>
-    <p v-if="changesNum">
-      <router-link :to="linkTo">{{ changesText }}</router-link>
-    </p>
-    <p v-else>
-      {{ changesText }}
+    <p class="changes">
+      <template v-if="changesNum">
+        <router-link :to="linkTo">{{ changesText }}</router-link>
+      </template>
+      <template v-else>
+        {{ changesText }}
+      </template>
     </p>
   </div>
 </template>

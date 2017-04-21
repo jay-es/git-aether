@@ -5,7 +5,22 @@
 body {
   @extend %bgColor;
   @extend %fontColor;
+  margin-bottom: 0;
   font-size: 13px;
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: hsla(0, 0, 50, .1);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: hsla(0, 0, 60, .4);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-corner {
+    background-color: hsla(0, 0, 50, .1);
+  }
 }
 
 a {
@@ -29,22 +44,6 @@ a {
 }
 .inline {
   display: inline;
-}
-
-body {
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-    background-color: hsla(0, 0, 50, .1);
-    border-radius: 3px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: hsla(0, 0, 60, .4);
-    border-radius: 3px;
-  }
-  ::-webkit-scrollbar-corner {
-    background-color: hsla(0, 0, 50, .1);
-  }
 }
 
 pre, code {
