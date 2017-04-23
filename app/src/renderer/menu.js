@@ -1,13 +1,11 @@
 import fs from 'fs';
-import path from 'path';
 import { remote } from 'electron';
-const { Menu, Tray, dialog } = remote;
+const { Menu, dialog } = remote;
+const mainProcess = remote.require('./index');
 
 import repos from './components/LandingPageView/scripts/repos';
 import sync from './components/LandingPageView/scripts/sync';
 import main from './main';
-
-let tray = null;
 
 const appMenu = Menu.buildFromTemplate([
   {
@@ -71,24 +69,12 @@ const appMenu = Menu.buildFromTemplate([
           win.setSkipTaskbar(item.checked);
 
           if (item.checked) {
-            // メインプロセスの__dirnameを取得する
-            const main = remote.require('./index');
-            const iconPath = path.join(main.getDirName(), '../../dist/icon.ico');
-
-            // トレイを作成
-            tray = new Tray(iconPath);
-            tray.on('click', () => {
-              win.focus();
-            });
-
-            // リロードするとwinの参照が切れてしまうので、トレイを削除する
-            window.addEventListener('beforeunload', () => {
-              tray.destroy();
-            });
+            mainProcess.createTray();
           } else {
-            tray.destroy();
+            mainProcess.destroyTray();
           }
         },
+        checked: mainProcess.isTrayActive(),
       },
     ],
   },
