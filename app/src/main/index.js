@@ -39,3 +39,7 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
+export function getDirName() {
+  return __dirname;
+}

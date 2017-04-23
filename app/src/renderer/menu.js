@@ -1,11 +1,13 @@
 import fs from 'fs';
+import path from 'path';
 import { remote } from 'electron';
-const { Menu, dialog } = remote;
+const { Menu, Tray, dialog } = remote;
 
 import repos from './components/LandingPageView/scripts/repos';
 import sync from './components/LandingPageView/scripts/sync';
 import main from './main';
 
+let tray = null;
 
 const appMenu = Menu.buildFromTemplate([
   {
@@ -60,6 +62,33 @@ const appMenu = Menu.buildFromTemplate([
           const isChecked = localStorage.getItem('dark') === 'true';
           return document.documentElement.classList.toggle('dark', isChecked);
         })(),
+      },
+      {
+        label: 'Skip Taskbar',
+        type: 'checkbox',
+        click(item) {
+          const win = remote.getCurrentWindow();
+          win.setSkipTaskbar(item.checked);
+
+          if (item.checked) {
+            // メインプロセスの__dirnameを取得する
+            const main = remote.require('./index');
+            const iconPath = path.join(main.getDirName(), '../../dist/icon.ico');
+
+            // トレイを作成
+            tray = new Tray(iconPath);
+            tray.on('click', () => {
+              win.focus();
+            });
+
+            // リロードするとwinの参照が切れてしまうので、トレイを削除する
+            window.addEventListener('beforeunload', () => {
+              tray.destroy();
+            });
+          } else {
+            tray.destroy();
+          }
+        },
       },
     ],
   },
