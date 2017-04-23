@@ -48,18 +48,34 @@ const createGitInstance = path => (
  * @param {array} paths パス文字列の配列
  * @return {promise}
  */
-repos.init = (paths) => {
+const init = (paths) => {
   const errors = [];
   repos.length = 0;
 
+  // TODO 旧型式も読み込めるように
+  paths = paths.map((v) => {
+    if (!v.pathName) {
+      return {
+        pathName: v,
+        github: '',
+      };
+    }
+
+    return v;
+  });
+
   const promises = paths.map((path, i) => (
-    createGitInstance(path)
-      .then((rep) => {
-        repos[i] = rep[0];
+    createGitInstance(path.pathName)
+      .then((res) => {
+        repos[i] = {
+          github: path.github,
+          pathName: path.pathName,
+          rep: res[0],
+        };
       })
       .catch((err) => {
         repos[i] = null;
-        errors[i] = `${err}: "${path}"`;
+        errors[i] = `${err}: "${path.pathName}"`;
       })
   ));
 
@@ -85,4 +101,7 @@ repos.init = (paths) => {
 };
 
 
-export default repos;
+export default {
+  createGitInstance,
+  init,
+};

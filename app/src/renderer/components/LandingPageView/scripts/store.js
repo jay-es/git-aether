@@ -2,6 +2,7 @@ import Vue from 'vue';
 
 const emptyData = {
   rep: null,
+  github: '',
   index: 0,
   pathName: '',
   // diffSummary: null,
@@ -25,10 +26,8 @@ export default new Vue({
      * @param {array} repos リポジトリの配列
      */
     initTable(repos) {
-      const tableData = repos.map((rep, i) => Object.assign({}, emptyData, {
-        rep,
+      const tableData = repos.map((rep, i) => Object.assign({}, emptyData, rep, {
         index: i,
-        pathName: rep._baseDir,
       }));
 
       this.$set(this, 'tableData', tableData);
@@ -152,9 +151,6 @@ export default new Vue({
      * @return {promise}
      */
     fetchAll() {
-      // return this.tableData.map((v, i) => this.fetch(i));
-      // return this.tableData.reduce((p, c, i) => p.then(() => this.fetch(i)), Promise.resolve());
-
       return this.tableData.map((v, i) => (
         setTimeout(() => {
           this.fetch(i);
