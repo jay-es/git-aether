@@ -1,9 +1,6 @@
-import fs from 'fs';
 import { remote } from 'electron';
-const { Menu, dialog } = remote;
+const { Menu } = remote;
 
-import repos from './components/LandingPageView/scripts/repos';
-import sync from './components/LandingPageView/scripts/sync';
 import main from './main';
 
 
@@ -12,28 +9,19 @@ const appMenu = Menu.buildFromTemplate([
     label: 'File',
     submenu: [
       {
-        label: 'Open Path List',
-        click() {
-          dialog.showOpenDialog({}, (filePaths) => {
-            if (!filePaths) return;
-
-            const filePath = filePaths[0];
-
-            const text = fs.readFileSync(filePath, 'utf8');
-            const paths = text.split(/\n/).map(v => v.trim()).filter(v => v);
-
-            localStorage.setItem('paths', JSON.stringify(paths));
-
-            repos.init(paths)
-              .then(() => {
-                sync.startTimer();
-              });
-          });
-        },
-      },
-      {
         role: 'quit',
         accelerator: 'CmdOrCtrl+Q',
+      },
+    ],
+  },
+  {
+    label: 'Edit',
+    submenu: [
+      {
+        label: 'Path List',
+        click() {
+          main.$router.push('/edit-path');
+        },
       },
     ],
   },

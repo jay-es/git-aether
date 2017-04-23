@@ -11,6 +11,11 @@ export default [
     props: true,
   },
   {
+    path: '/edit-path',
+    name: 'edit-path-page',
+    component: require('components/EditPathView'),
+  },
+  {
     path: '*',
     redirect: '/',
   },
