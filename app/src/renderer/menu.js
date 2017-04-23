@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { remote } from 'electron';
 const { Menu, dialog } = remote;
-const mainProcess = remote.require('./index');
+const tray = remote.require('./tray');
 
 import repos from './components/LandingPageView/scripts/repos';
 import sync from './components/LandingPageView/scripts/sync';
@@ -69,12 +69,12 @@ const appMenu = Menu.buildFromTemplate([
           win.setSkipTaskbar(item.checked);
 
           if (item.checked) {
-            mainProcess.createTray();
+            tray.createTray();
           } else {
-            mainProcess.destroyTray();
+            tray.destroyTray();
           }
         },
-        checked: mainProcess.isTrayActive(),
+        checked: tray.isTrayActive(),
       },
     ],
   },

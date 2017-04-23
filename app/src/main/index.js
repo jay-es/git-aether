@@ -1,5 +1,4 @@
-import path from 'path';
-import { app, BrowserWindow, Tray } from 'electron';
+import { app, BrowserWindow } from 'electron';
 
 let mainWindow;
 const isDev = process.env.NODE_ENV === 'development';
@@ -41,19 +40,9 @@ app.on('activate', () => {
   }
 });
 
-// タスクトレイ
-let tray = null;
-export function createTray() {
-  const iconPath = path.join(__dirname, '../../dist/icon.ico');
-  tray = new Tray(iconPath);
-  tray.on('click', () => {
-    mainWindow.focus();
-  });
-}
-export function destroyTray() {
-  tray.destroy();
-}
-export function isTrayActive() {
-  if (tray === null) return false;
-  return !tray.isDestroyed();
-}
+
+export default {
+  getMainWindow() {
+    return mainWindow;
+  },
+};
