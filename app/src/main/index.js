@@ -39,3 +39,12 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
+
+require('./tray');
+
+export default {
+  getMainWindow() {
+    return mainWindow;
+  },
+};

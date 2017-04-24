@@ -1,8 +1,7 @@
-import { remote } from 'electron';
+import { remote, ipcRenderer } from 'electron';
 const { Menu } = remote;
 
 import main from './main';
-
 
 const appMenu = Menu.buildFromTemplate([
   {
@@ -48,6 +47,16 @@ const appMenu = Menu.buildFromTemplate([
           const isChecked = localStorage.getItem('dark') === 'true';
           return document.documentElement.classList.toggle('dark', isChecked);
         })(),
+      },
+      {
+        label: 'Skip Taskbar',
+        type: 'checkbox',
+        click(item) {
+          const win = remote.getCurrentWindow();
+          win.setSkipTaskbar(item.checked);
+          ipcRenderer.send(item.checked ? 'createTray' : 'destroyTray');
+        },
+        checked: ipcRenderer.sendSync('isTrayActive'),
       },
     ],
   },
