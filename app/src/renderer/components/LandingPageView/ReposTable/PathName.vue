@@ -1,5 +1,5 @@
 <template>
-  <div @contextmenu="menu">
+  <div @contextmenu.self="menu">
     {{ row.pathName }}<br>
     <p class="changes">
       <template v-if="changesNum">
@@ -13,8 +13,8 @@
 </template>
 
 <script>
-  // import eventHub from '../scripts/eventHub';
-  // const { Menu } = require('electron').remote;
+  import { remote, shell } from 'electron';
+  const { Menu } = remote;
 
   export default {
     props: ['row'],
@@ -33,14 +33,30 @@
     },
     methods: {
       menu() {
-        // Menu.buildFromTemplate([
-        //   {
-        //     label: 'Create Branch',
-        //     click: () => {
-        //       eventHub.emit('createBranch', this.row.index);
-        //     },
-        //   },
-        // ]).popup();
+        const githubUrl = `https://github.com/${this.row.github}`;
+        Menu.buildFromTemplate([
+          {
+            label: 'GitHub',
+            submenu: [
+              {
+                label: 'Home',
+                click: () => shell.openExternal(githubUrl),
+              },
+              {
+                label: 'Branches',
+                click: () => shell.openExternal(`${githubUrl}/branches`),
+              },
+              {
+                label: 'Issues',
+                click: () => shell.openExternal(`${githubUrl}/issues`),
+              },
+              {
+                label: 'Pull requests',
+                click: () => shell.openExternal(`${githubUrl}/pulls`),
+              },
+            ],
+          },
+        ]).popup();
       },
     },
   };
