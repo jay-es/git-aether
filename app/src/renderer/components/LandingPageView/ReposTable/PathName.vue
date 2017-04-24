@@ -33,9 +33,11 @@
     },
     methods: {
       menu() {
-        const githubUrl = `https://github.com/${this.row.github}`;
-        Menu.buildFromTemplate([
-          {
+        const menuTmpl = [];
+
+        if (this.row.github) {
+          const githubUrl = `https://github.com/${this.row.github}`;
+          menuTmpl.push({
             label: 'GitHub',
             submenu: [
               {
@@ -55,8 +57,10 @@
                 click: () => shell.openExternal(`${githubUrl}/pulls`),
               },
             ],
-          },
-        ]).popup();
+          });
+        }
+
+        Menu.buildFromTemplate(menuTmpl).popup();
       },
     },
   };
