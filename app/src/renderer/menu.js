@@ -1,7 +1,6 @@
 import fs from 'fs';
-import { remote } from 'electron';
+import { remote, ipcRenderer } from 'electron';
 const { Menu, dialog } = remote;
-const tray = remote.require('./tray');
 
 import repos from './components/LandingPageView/scripts/repos';
 import sync from './components/LandingPageView/scripts/sync';
@@ -67,14 +66,9 @@ const appMenu = Menu.buildFromTemplate([
         click(item) {
           const win = remote.getCurrentWindow();
           win.setSkipTaskbar(item.checked);
-
-          if (item.checked) {
-            tray.createTray();
-          } else {
-            tray.destroyTray();
-          }
+          ipcRenderer.send(item.checked ? 'createTray' : 'destroyTray');
         },
-        checked: tray.isTrayActive(),
+        checked: ipcRenderer.sendSync('isTrayActive'),
       },
     ],
   },

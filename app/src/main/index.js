@@ -41,6 +41,8 @@ app.on('activate', () => {
 });
 
 
+require('./tray');
+
 export default {
   getMainWindow() {
     return mainWindow;

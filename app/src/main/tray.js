@@ -1,13 +1,14 @@
 import path from 'path';
-import { Tray } from 'electron';
+import { Tray, ipcMain } from 'electron';
 
 import index from './index';
 
+const isDev = process.env.NODE_ENV === 'development';
+const iconPath = path.join(__dirname, isDev ? '../../dist/icon.ico' : './icon.ico');
 let tray = null;
 
 // トレイを作成
 const createTray = () => {
-  const iconPath = path.join(__dirname, '../../dist/icon.ico');
   tray = new Tray(iconPath);
 
   tray.on('click', () => {
@@ -29,8 +30,9 @@ const isTrayActive = () => {
   return !tray.isDestroyed();
 };
 
-export {
-  createTray,
-  destroyTray,
-  isTrayActive,
-};
+
+ipcMain.on('createTray', createTray);
+ipcMain.on('destroyTray', destroyTray);
+ipcMain.on('isTrayActive', (e) => {
+  e.returnValue = isTrayActive();
+});
