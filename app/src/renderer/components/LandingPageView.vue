@@ -10,8 +10,8 @@
   import ReposTable from './LandingPageView/ReposTable';
   import Dialogs from './LandingPageView/Dialogs';
 
-  const paths = JSON.parse(localStorage.getItem('paths')) || [];
-  repos.init(paths);
+  const pathList = JSON.parse(localStorage.getItem('pathList')) || [];
+  repos.init(pathList);
 
   export default {
     name: 'landing-page',
