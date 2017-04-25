@@ -16,9 +16,9 @@
       </tbody>
     </table>
     <footer class="EditPathView_footer">
-      <button class="" @click="addRow">Add</button>
-      <button class="" @click="cancel">Cancel</button>
-      <button class="" @click="save">Save</button>
+      <button @click="addRow">Add row</button>
+      <button @click="cancel">Cancel</button>
+      <button @click="save">Save</button>
     </footer>
   </div>
 </template>

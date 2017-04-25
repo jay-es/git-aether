@@ -31,10 +31,6 @@
         <input type="checkbox" class="checkbox" v-model="fetchingTrackingBranch" :disabled="isLocal"/>
         Fetching Tracking Branch
       </label>
-      <!-- <label class="label">
-        <input type="checkbox" class="checkbox" v-model="checkoutAfterCreation" />
-        Checkout After Creation
-      </label> -->
     </fieldset>
 
     <footer class="dialog-footer">
@@ -64,7 +60,6 @@
     newBranchName: 'master',
     targetBranch: 'origin/master',
     fetchingTrackingBranch: true,
-    // checkoutAfterCreation: true,
   };
 
   export default {

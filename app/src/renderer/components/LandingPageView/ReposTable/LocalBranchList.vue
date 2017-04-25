@@ -11,28 +11,15 @@
         {{ branch.name }}
       </li>
     </template>
-    <!-- <commit-dialog
-      ref="commitDialog"
-      :rep="row.rep"
-    ></commit-dialog> -->
   </ul>
 </template>
 
 <script>
   import eventHub from '../scripts/eventHub';
-  const { Menu, dialog/* , BrowserWindow */ } = require('electron').remote;
-  // const commitDialog = require('../components/commitDialog');
+  const { Menu, dialog } = require('electron').remote;
 
   export default {
     props: ['row'],
-    // data() {
-    //   return {
-    //     targetBranch: null,
-    //   };
-    // },
-    components: {
-      // commitDialog,
-    },
     methods: {
       checkout(branch) {
         if (branch.current) return;
@@ -133,7 +120,6 @@
           // どちらでも
           {
             label: 'Rename',
-            // enabled: !branch.current,
             click: () => {
               eventHub.emit('renameBranch', this.row.index, branch.name);
             },
