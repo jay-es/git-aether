@@ -16,7 +16,7 @@
       </tbody>
     </table>
     <footer class="EditPathView_footer">
-      <button @click="addRow">Add row</button>
+      <button @click="addRow" :disabled="pathList.length >= 20">Add row</button>
       <button @click="cancel">Cancel</button>
       <button @click="save">Save</button>
     </footer>
@@ -41,11 +41,11 @@
         pathList: (() => {
           const retVal = JSON.parse(localStorage.getItem('pathList')) || [];
           for (let i = 0; i < 3; i++) {
+            if (retVal.length >= 20) break;
             retVal.push(Object.assign({}, emptyData));
           }
           return retVal;
         })(),
-        date: Date.now(),
       };
     },
     methods: {

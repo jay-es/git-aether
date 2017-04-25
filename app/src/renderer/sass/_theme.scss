@@ -4,8 +4,8 @@ $accColor: #4d89c1;
 %fontColor-deep { color: #111; }
 %borderColor { border-color: #e5e5e5; }
 %linkColor { color: $accColor; }
-%linkColor:hover { color: #2061a1; }
-%linkColor:active { color: darken(#2061a1, 10%); }
+%linkColor:hover { color: saturate(darken($accColor, 20%), 20%); }
+%linkColor:active { color: saturate(darken($accColor, 40%), 40%); }
 
 %input-bgColor { background-color: darken(#fff, 0%); }
 %input-border { border: 1px solid darken(#e5e5e5, 10%); }
@@ -24,19 +24,19 @@ $accColor: #4d89c1;
 %diff-bgColor-ins-word { background-color: #a6f3a6; }
 
 .dark {
-  $accColor: #4ea6ea;
+  $accColor: hsl(263, 100%, 77%); // #4ea6ea
   %bgColor { background-color: #252525; }
   %fontColor { color: #ccc; }
   %fontColor-deep { color: #eee; }
   %borderColor { border-color: #3f3f3f; }
   %linkColor { color: $accColor; }
   %linkColor:hover { color: desaturate(darken($accColor, 10%), 30%); }
-  %linkColor:active { color: desaturate(darken($accColor, 20%), 30%); }
+  %linkColor:active { color: desaturate(darken($accColor, 20%), 50%); }
 
   %input-bgColor { background-color: darken(#252525, 5%); }
   %input-border { border: 1px solid darken(#3f3f3f, 5%); }
   %radio-border { border: 1px solid $accColor; }
-  %radio-checkedBg { background-color: $accColor; }
+  %radio-checkedBg { background-color: darken($accColor, 5%); }
   %btn { color: $accColor; background-color: transparent; }
   %btn:not(:disabled):hover { background-color: rgba($accColor, .1); }
   %btn:not(:disabled):active { color: desaturate(darken($accColor, 10%), 30%); background-color: rgba($accColor, .05); }

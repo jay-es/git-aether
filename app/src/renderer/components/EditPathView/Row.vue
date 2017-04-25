@@ -33,6 +33,13 @@
         this.pathList.splice(i, 2, this.pathList[i + 1], this.pathList[i]);
       },
       remove() {
+        // データがない行だったら削除して終了
+        if (!this.rowData.pathName && !this.rowData.github) {
+          this.pathList.splice(this.rowIndex, 1);
+          return;
+        }
+
+        // データがあったら確認ダイアログ
         dialog.showMessageBox({
           type: 'question',
           message: 'Remove this row?',

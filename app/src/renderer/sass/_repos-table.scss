@@ -30,11 +30,10 @@
     margin: 0;
     overflow-y: auto;
     box-sizing: border-box;
-    height: auto;
     min-height: 4em;
   }
 
-  @for $i from 2 through 20 {
+  @for $i from 1 through 20 {
     [data-rows="#{$i}"] .cell { height: calc(((100vh - 54px) / #{$i}) - 1px); }
   }
 }

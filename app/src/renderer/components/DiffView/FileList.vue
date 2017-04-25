@@ -234,7 +234,7 @@
     bottom: 0;
     margin: auto;
     height: 1em;
-    font-size: 8px;
+    font-size: 10px;
     line-height: 1;
   }
   &:hover .file-name {
