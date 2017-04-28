@@ -1,5 +1,6 @@
 <template>
   <div class="diff-view_file-list">
+    <header class="diff-view_file-list_header">{{ row.pathName }}<br>{{ currentBranch }}</header>
     <p class="diff-view_file-list_title">Unstaged Changes</p>
     <ul class="list diff-view_file-list_list">
       <li v-for="(file, i) of files" v-show="file.hasUnstaged">
@@ -47,6 +48,11 @@
       return {
         files: [],
       };
+    },
+    computed: {
+      currentBranch() {
+        return this.row.localBranches.filter(v => v.current)[0].name;
+      },
     },
     methods: {
       setCurrent(file, isCached) {
@@ -184,6 +190,10 @@
   flex-direction: column;
 }
 
+.diff-view_file-list_header {
+  margin: 0 0 1em;
+  opacity: .75;
+}
 .diff-view_file-list_title {
   margin: 0 0 .25em;
 }
