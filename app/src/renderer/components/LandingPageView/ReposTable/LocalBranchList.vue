@@ -107,42 +107,34 @@
                 // No なら終了
                 if (res === 1) return;
 
-                listClass.add('is-processing');
+                this.row.rep.deleteLocalBranch(branch.name, (err) => {
+                  // マージされていないブランチだったらさらに確認ダイアログ
+                  if (err && err.indexOf('not fully merged.') !== -1) {
+                    const detailText =
+                        'Recovering deleted branches is difficult.\nDelete this branch?\n\n';
 
-                this.row.rep.fetch({ '--all': null }, (err) => {
+                    dialog.showMessageBox({
+                      type: 'warning',
+                      message: 'The branch is not fully merged.',
+                      detail: detailText + branch.name,
+                      buttons: ['Yes', 'No'],
+                    }, (res) => {
+                      // No なら終了
+                      if (res === 1) return;
+
+                      this.row.rep.raw(['branch', '-D', branch.name], (err) => {
+                        if (err) { dialog.showErrorBox('', err); return; }
+                        this.$emit('update');
+                      });
+                    });
+                    return;
+                  }
+
+                  // その他のエラー
                   if (err) { dialog.showErrorBox('', err); return; }
 
-                  this.row.rep.deleteLocalBranch(branch.name, (err) => {
-                    listClass.remove('is-processing');
-
-                    // マージされていないブランチだったらさらに確認ダイアログ
-                    if (err && err.indexOf('not fully merged.') !== -1) {
-                      const detailText =
-                          'Recovering deleted branches is difficult.\nDelete this branch?\n\n';
-
-                      dialog.showMessageBox({
-                        type: 'warning',
-                        message: 'The branch is not fully merged.',
-                        detail: detailText + branch.name,
-                        buttons: ['Yes', 'No'],
-                      }, (res) => {
-                        // No なら終了
-                        if (res === 1) return;
-
-                        this.row.rep.raw(['branch', '-D', branch.name], (err) => {
-                          if (err) { dialog.showErrorBox('', err); return; }
-                          this.$emit('update');
-                        });
-                      });
-                      return;
-                    }
-
-                    // その他のエラー
-                    if (err) { dialog.showErrorBox('', err); return; }
-
-                    // 成功
-                    this.$emit('update');
-                  });
+                  // 成功
+                  this.$emit('update');
                 });
               });
             },
