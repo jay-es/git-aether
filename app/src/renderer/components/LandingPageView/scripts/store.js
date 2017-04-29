@@ -18,6 +18,7 @@ const emptyData = {
 export default new Vue({
   data: {
     tableData: [],
+    commandList: JSON.parse(localStorage.getItem('commandList')) || [],
   },
   methods: {
     /**

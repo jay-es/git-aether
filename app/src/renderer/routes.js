@@ -16,6 +16,11 @@ export default [
     component: require('components/EditPathView'),
   },
   {
+    path: '/edit-command',
+    name: 'edit-command-page',
+    component: require('components/EditCommandView'),
+  },
+  {
     path: '*',
     redirect: '/',
   },

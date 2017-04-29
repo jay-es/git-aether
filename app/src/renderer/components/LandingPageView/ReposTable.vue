@@ -34,6 +34,7 @@
           <command-list
             class="cell"
             :row="row"
+            :command-list="commandList"
           >
           </command-list>
         </td>
@@ -59,6 +60,7 @@
   export default {
     computed: {
       tableData() { return store.tableData; },
+      commandList() { return store.commandList; },
     },
     components: {
       store,

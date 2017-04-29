@@ -22,6 +22,12 @@ const appMenu = Menu.buildFromTemplate([
           main.$router.push('/edit-path');
         },
       },
+      {
+        label: 'Command List',
+        click() {
+          main.$router.push('/edit-command');
+        },
+      },
     ],
   },
   {
