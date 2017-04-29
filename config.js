@@ -5,7 +5,7 @@ const path = require('path')
 let config = {
   // Name of electron app
   // Will be used in production builds
-  name: 'my-project',
+  name: 'Git Aether',
 
   // Use ESLint (extends `airbnb`)
   // Further changes can be made in `.eslintrc.js`
