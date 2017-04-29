@@ -42,7 +42,6 @@
           <pre
             class="fetch-log cell"
             :class="{'is-processing': row.isFetching}"
-            @click="fetch(rowIndex)"
           >{{ row.logText }}</pre>
         </td>
       </tr>
@@ -70,7 +69,6 @@
       CommandList,
     },
     methods: {
-      fetch: store.fetch,
       getBranch: store.getBranch,
     },
   };

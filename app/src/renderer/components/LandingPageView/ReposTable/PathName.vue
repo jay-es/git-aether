@@ -14,6 +14,7 @@
 
 <script>
   import { remote, shell } from 'electron';
+  import store from '../scripts/store';
   const { Menu } = remote;
 
   export default {
@@ -33,7 +34,15 @@
     },
     methods: {
       menu() {
-        const menuTmpl = [];
+        const menuTmpl = [{
+          label: 'Git',
+          submenu: [
+            {
+              label: 'fetch --all --prune',
+              click: () => store.fetch(this.row.index),
+            },
+          ],
+        }];
 
         if (this.row.github) {
           const githubUrl = `https://github.com/${this.row.github}`;
