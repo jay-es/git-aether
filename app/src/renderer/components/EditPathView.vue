@@ -1,6 +1,6 @@
 <template>
   <div class="EditPathView">
-    <table class="edit-path-table">
+    <table class="table edit-path-table">
       <thead>
         <th>Directory</th>
         <th>GitHub URL</th>
@@ -68,31 +68,8 @@
 
 <style lang="scss">
 .edit-path-table {
-  $padding: 4px 8px;
-
-  width: 100%;
-  border-collapse: collapse;
-  line-height: 1.1;
   text-align: center;
 
-  > thead {
-    white-space: nowrap;
-  }
-
-  > tbody tr {
-    vertical-align: top;
-  }
-
-  th, td {
-    border-color: var(--borderColor);
-    border-style: solid;
-    border-width: 1px 0;
-  }
-
-  th {
-    padding: $padding;
-    font-weight: 500;
-  }
   td {
     padding: .75em 0;
   }

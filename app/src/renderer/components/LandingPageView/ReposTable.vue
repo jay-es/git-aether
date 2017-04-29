@@ -1,5 +1,5 @@
 <template>
-  <table class="repos-table">
+  <table class="table repos-table">
     <thead>
       <th>Path</th>
       <th>Local Branches</th>
@@ -73,3 +73,50 @@
     },
   };
 </script>
+
+<style lang="scss">
+.repos-table {
+  td {
+    padding: 0;
+  }
+
+  .cell {
+    padding: 4px 8px;
+    margin: 0;
+    overflow-y: auto;
+    box-sizing: border-box;
+    min-height: 4em;
+  }
+
+  @for $i from 1 through 20 {
+    [data-rows="#{$i}"] .cell { height: calc(((100vh - 54px) / #{$i}) - 1px); }
+  }
+  .changes {
+    display: inline-block;
+    margin-bottom: 0;
+  }
+
+  .local-branch-list,
+  .tracking-branch-list {
+    word-break: break-word;
+  }
+
+  .local-branch-list > li {
+    &.is-current {
+      color: var(--fontColor-deep);
+      font-weight: 500;
+      text-decoration: underline;
+    }
+    &:not(.is-current) {
+      cursor: pointer;
+    }
+    &:hover {
+      color: var(--fontColor-deep);
+    }
+  }
+
+  .fetch-log {
+    min-width: 12em;
+  }
+}
+</style>
