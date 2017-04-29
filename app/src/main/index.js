@@ -1,3 +1,4 @@
+import path from 'path';
 import { app, BrowserWindow } from 'electron';
 
 let mainWindow;
@@ -14,6 +15,7 @@ function createWindow() {
     width: 800,
     height: isDev ? 960 : 600,
     show: false,
+    icon: path.join(__dirname, isDev ? '../../dist/icon48.ico' : './icon48.ico'),
   });
 
   mainWindow.loadURL(winURL);

@@ -4,7 +4,7 @@ import { Tray, ipcMain } from 'electron';
 import index from './index';
 
 const isDev = process.env.NODE_ENV === 'development';
-const iconPath = path.join(__dirname, isDev ? '../../dist/icon.ico' : './icon.ico');
+const iconPath = path.join(__dirname, isDev ? '../../dist/icon48.ico' : './icon48.ico');
 let tray = null;
 
 // トレイを作成
