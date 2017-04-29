@@ -14,7 +14,7 @@
   }
 
   th, td {
-    @extend %borderColor;
+    border-color: var(--borderColor);
     border-style: solid;
     border-width: 1px 0;
     padding: 0;
@@ -50,7 +50,7 @@
 
 .local-branch-list > li {
   &.is-current {
-    @extend %fontColor-deep;
+    color: var(--fontColor-deep);
     font-weight: 500;
     text-decoration: underline;
   }
@@ -58,7 +58,7 @@
     cursor: pointer;
   }
   &:hover {
-    @extend %fontColor-deep;
+    color: var(--fontColor-deep);
   }
 }
 

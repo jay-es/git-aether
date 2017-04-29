@@ -67,8 +67,6 @@
 </script>
 
 <style lang="scss">
-@import "../sass/_theme";
-
 .edit-path-table {
   $padding: 4px 8px;
 
@@ -86,7 +84,7 @@
   }
 
   th, td {
-    @extend %borderColor;
+    border-color: var(--borderColor);
     border-style: solid;
     border-width: 1px 0;
   }

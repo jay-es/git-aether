@@ -6,10 +6,10 @@ html {
   min-height: 100%;
 }
 body {
-  @extend %bgColor;
-  @extend %fontColor;
   margin-bottom: 0;
+  background-color: var(--bgColor);
   font-size: 13px;
+  color: var(--fontColor);
 
   ::-webkit-scrollbar {
     width: 6px;
@@ -27,10 +27,13 @@ body {
 }
 
 a {
-  @extend %linkColor;
+  color: var(--linkColor);
   text-decoration: underline;
   cursor: pointer;
   user-select: none;
+
+  &:hover { color: var(--linkColor-hover); }
+  &:active { color: var(--linkColor-active); }
 }
 
 // Vueを適用する要素につける
@@ -66,16 +69,16 @@ pre, code {
 }
 
 dialog {
-  @extend %fontColor;
   top: 0;
   bottom: 0;
   border: none;
   border-radius: 2px;
   box-shadow: 0px 0px 20px 5px hsla(0, 0, 50, .75);
+  color: var(--fontColor);
 
   &,
   &::backdrop {
-    @extend %bgColor;
+    background-color: var(--bgColor);
     opacity: 0;
     transition: opacity .1s;
   }

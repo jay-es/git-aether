@@ -94,11 +94,9 @@
 </script>
 
 <style lang="scss">
-@import "../../sass/_theme";
-
 .diff-view_screen {
-  @extend %diff-bgColor;
   padding: .25em 0;
+  background-color: var(--diff-bgColor);
   overflow: auto;
 }
 
@@ -118,12 +116,12 @@
   white-space: pre;
 
   &.ins {
-    @extend %diff-bgColor-ins;
-    @extend %diff-fontColor-ins;
+    background-color: var(--diff-bgColor-ins);
+    color: var(--diff-fontColor-ins);
   }
   &.del {
-    @extend %diff-bgColor-del;
-    @extend %diff-fontColor-del;
+    background-color: var(--diff-bgColor-del);
+    color: var(--diff-fontColor-del);
   }
   &.heading {
     padding-top: 1em;

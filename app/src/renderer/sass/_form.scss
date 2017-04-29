@@ -1,5 +1,5 @@
 .fieldset {
-  @extend %borderColor;
+  border-color: var(--borderColor);
   border-style: solid;
   border-width: 1px;
   margin: 0 0 1em;
@@ -33,10 +33,10 @@
 .select,
 .textarea {
   padding: .25em .5em;
-  @extend %input-bgColor;
-  @extend %input-border;
-  @extend %fontColor;
+  background-color: var(--input-bgColor);
+  border: 1px solid var(--input-borderColor);
   font-size: 1em;
+  color: var(--fontColor);
 }
 .input,
 .textarea {
@@ -49,11 +49,11 @@
 
 .checkbox,
 .radio {
-  @extend %radio-border;
   display: inline-block;
   position: relative;
   margin-top: 1px;
   margin-right: 2px;
+  border: 1px solid var(--linkColor);
   vertical-align: text-top;
   -webkit-appearance: none;
   width: 17px;
@@ -73,7 +73,7 @@
   border-radius: 50%;
 
   &:checked::after {
-    @extend %radio-checkedBg;
+    background-color: var(--radio-checkedBg);
     border-radius: 50%;
     width: 7px;
     height: 7px;
@@ -83,8 +83,8 @@
   border-radius: 2px;
 
   &:checked::after {
-    @extend %radio-border;
     bottom: 3px;
+    border: 1px solid var(--linkColor);
     border-width: 2px !important;
     border-style: none solid solid none !important;
     width: 4px;
@@ -94,16 +94,24 @@
 }
 
 button {
-  @extend %btn;
   padding: .15em .5em .35em;
   border: none;
   border-radius: 4px;
   background-color: transparent;
   font-size: 1em;
   line-height: 1.35;
+  color: var(--linkColor);
 
   &:not(:disabled) {
     cursor: pointer;
+
+    &:hover {
+      background-color: var(--btn-hover-bgColor);
+    }
+    &:active {
+      background-color: var(--btn-active-bgColor);
+      color: var(--btn-active-color);
+    }
   }
 
   &.block {

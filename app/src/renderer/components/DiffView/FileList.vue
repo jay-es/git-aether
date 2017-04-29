@@ -183,8 +183,6 @@
 </script>
 
 <style lang="scss">
-@import "../../sass/_theme";
-
 .diff-view_file-list {
   display: flex;
   flex-direction: column;
@@ -227,7 +225,6 @@
   vertical-align: top;
 
   &.is-current::before {
-    @extend %diff-bgColor;
     content: '';
     position: absolute;
     top: 2px;
@@ -235,6 +232,7 @@
     bottom: 0;
     left: 0;
     z-index: -1;
+    background-color: var(--diff-bgColor);
   }
   &.is-current::after {
     content: '▶';
