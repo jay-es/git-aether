@@ -1,4 +1,4 @@
-import { remote, ipcRenderer } from 'electron';
+import { remote, ipcRenderer, shell } from 'electron';
 const { Menu } = remote;
 
 import main from './main';
@@ -67,9 +67,16 @@ const appMenu = Menu.buildFromTemplate([
     ],
   },
   {
-    label: 'History',
+    label: 'Help',
     submenu: [
       {
+        label: 'Readme',
+        click() {
+          shell.openExternal('https://github.com/jshindo-gladd/git-aether');
+        },
+      },
+      {
+        visible: false,
         label: 'Back',
         accelerator: 'Alt+Left',
         click() {
@@ -77,6 +84,7 @@ const appMenu = Menu.buildFromTemplate([
         },
       },
       {
+        visible: false,
         label: 'Forward',
         accelerator: 'Alt+Right',
         click() {
