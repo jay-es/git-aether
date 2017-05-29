@@ -29,6 +29,10 @@
         <input type="checkbox" class="checkbox" v-model="ffOnly" />
         FF Only
       </label>
+      <label class="label">
+        <input type="checkbox" class="checkbox" v-model="noCommit" />
+        No FF &amp; No Commit
+      </label>
     </fieldset>
 
     <footer class="dialog-footer">
@@ -41,12 +45,14 @@
 <script>
   import { backdrop, closeDialog, openDialog } from './helper';
   import BranchList from './BranchList';
+
   const { dialog } = require('electron').remote;
 
   const initialData = {
     targetBranch: 'origin/master',
     fetchingTrackingBranch: true,
     ffOnly: false,
+    noCommit: false,
   };
 
   export default {
@@ -62,6 +68,14 @@
     components: {
       BranchList,
     },
+    watch: {
+      ffOnly(v) {
+        if (v) this.noCommit = false;
+      },
+      noCommit(v) {
+        if (v) this.ffOnly = false;
+      },
+    },
     methods: {
       backdrop,
       closeDialog,
@@ -71,6 +85,10 @@
 
         if (this.ffOnly) {
           options.push('--ff-only');
+        }
+
+        if (this.noCommit) {
+          options.push('--no-ff', '--no-commit');
         }
 
         this.$el.classList.add('is-processing');
