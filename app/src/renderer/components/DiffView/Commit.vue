@@ -49,7 +49,7 @@
         if (!currentBranch) return;
 
         this.row.rep.push('origin', currentBranch[0].name, (err) => {
-          if (err) { dialog.showErrorBox('', err); return; }
+          if (err) { dialog.showErrorBox('', err); }
 
           listClass.remove('is-processing');
         });
