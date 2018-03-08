@@ -33,7 +33,7 @@
         const listClass = this.$el.parentElement.classList;
         let sameNameRemote = null;
         this.row.trackingBranches.some((v) => {
-          if (new RegExp(`/${branch.name}$`).test(v.name)) {
+          if (v.name.endsWith(`/${branch.name}`)) {
             sameNameRemote = v;
             return true;
           }
