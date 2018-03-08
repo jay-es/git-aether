@@ -29,7 +29,7 @@
     props: ['row', 'initialValue', 'hiddenValue'],
     data() {
       return {
-        ROW_SIZE: 15,
+        ROW_SIZE: 25,
         value: '',
       };
     },
@@ -56,6 +56,10 @@
   }
   &._last {
     border-radius: 0 3px 3px 0;
+  }
+  &:not(._last) {
+    max-width: 25vw;
+    overflow-x: auto;
   }
 }
 </style>
