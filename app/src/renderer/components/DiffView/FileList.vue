@@ -58,7 +58,7 @@
       setCurrent(file, isCached) {
         this.currentFile.path = file.path;
         this.currentFile.isCached = isCached;
-        this.currentFile.isNewFile = file.index === '?';
+        this.currentFile.isUntracked = file.index === '?';
         this.currentFile.timestamp = Date.now();
       },
 

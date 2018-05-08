@@ -48,7 +48,7 @@
         }
 
         // 新規ファイルの場合
-        if (this.currentFile.isNewFile) {
+        if (this.currentFile.isUntracked) {
           const filePath = `${this.row.rep._baseDir}/${this.currentFile.path}`;
           const text = fs.readFileSync(filePath, 'utf8')
               .split('\n')
