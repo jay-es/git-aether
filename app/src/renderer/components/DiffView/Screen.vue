@@ -49,13 +49,9 @@
 
         // 新規ファイルの場合
         if (this.currentFile.isUntracked) {
-          const filePath = `${this.row.rep._baseDir}/${this.currentFile.path}`;
-          const text = fs.readFileSync(filePath, 'utf8')
-              .split('\n')
-              .map(v => `+${v}`)
-              .join('\n');
-          this.$set(this, 'diffText', text || 'No Diff');
-          return;
+          this.row.rep.raw(['add', '-N', this.currentFile.path], () => {
+            this.row.rep.raw(['reset', 'HEAD', this.currentFile.path]);
+          });
         }
 
         const options = ['diff', '--', this.currentFile.path];
