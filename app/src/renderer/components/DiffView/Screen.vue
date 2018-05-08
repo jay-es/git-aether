@@ -54,15 +54,13 @@
           });
         }
 
-        const options = ['diff', '--', this.currentFile.path];
-
-        if (this.currentFile.isCached) {
-          options.splice(1, 0, '--cached');
-        }
-
-        if (this.options.ignoreWhitespace) {
-          options.splice(1, 0, `-${this.options.ignoreWhitespace}`);
-        }
+        const options = [
+          'diff',
+          this.currentFile.isCached ? '--cached' : null,
+          this.options.ignoreWhitespace ? `-${this.options.ignoreWhitespace}` : null,
+          '--',
+          this.currentFile.path,
+        ].filter(v => v !== null);
 
         this.row.rep.raw(options, (err, data) => {
           if (err) { dialog.showErrorBox('', err); return; }
