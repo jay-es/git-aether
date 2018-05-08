@@ -4,16 +4,16 @@
   --fontColor: #333;
   --fontColor-deep: #111;
   --borderColor: #e5e5e5;
-  --linkColor: $accColor;
-  --linkColor-hover: saturate(darken($accColor, 20%), 20%);
-  --linkColor-active: saturate(darken($accColor, 40%), 40%);
+  --linkColor: #{$accColor};
+  --linkColor-hover: #{saturate(darken($accColor, 20%), 20%)};
+  --linkColor-active: #{saturate(darken($accColor, 40%), 40%)};
 
-  --input-bgColor: darken(#fff, 0%);
-  --input-borderColor: darken(#e5e5e5, 10%);
-  --radio-checkedBg: lighten($accColor, 5%);
-  --btn-hover-bgColor: rgba($accColor, .1);
-  --btn-active-bgColor: rgba($accColor, .05);
-  --btn-active-color: desaturate(darken($accColor, 10%), 30%);
+  --input-bgColor: #{darken(#fff, 0%)};
+  --input-borderColor: #{darken(#e5e5e5, 10%)};
+  --radio-checkedBg: #{lighten($accColor, 5%)};
+  --btn-hover-bgColor: #{rgba($accColor, .1)};
+  --btn-active-bgColor: #{rgba($accColor, .05)};
+  --btn-active-color: #{desaturate(darken($accColor, 10%), 30%)};
 
   --diff-fontColor-del: #740000;
   --diff-fontColor-ins: #001e00;
@@ -30,16 +30,16 @@
   --fontColor: #ccc;
   --fontColor-deep: #eee;
   --borderColor: #3f3f3f;
-  --linkColor: $accColor;
-  --linkColor-hover: desaturate(darken($accColor, 10%), 30%);
-  --linkColor-active: desaturate(darken($accColor, 20%), 50%);
+  --linkColor: #{$accColor};
+  --linkColor-hover: #{desaturate(darken($accColor, 10%), 30%)};
+  --linkColor-active: #{desaturate(darken($accColor, 20%), 50%)};
 
-  --input-bgColor: darken(#252525, 5%);
-  --input-borderColor: darken(#3f3f3f, 5%);
-  --radio-checkedBg: darken($accColor, 5%);
-  --btn-hover-bgColor: rgba($accColor, .1);
-  --btn-active-bgColor: rgba($accColor, .05);
-  --btn-active-color: desaturate(darken($accColor, 10%), 30%);
+  --input-bgColor: #{darken(#252525, 5%)};
+  --input-borderColor: #{darken(#3f3f3f, 5%)};
+  --radio-checkedBg: #{darken($accColor, 5%)};
+  --btn-hover-bgColor: #{rgba($accColor, .1)};
+  --btn-active-bgColor: #{rgba($accColor, .05)};
+  --btn-active-color: #{desaturate(darken($accColor, 10%), 30%)};
 
   --diff-fontColor-del: hsl(10, 100%, 57%); // hsl(10, 71%, 47%) #cc3e22
   --diff-fontColor-ins: #2c2;
