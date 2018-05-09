@@ -1,13 +1,8 @@
 <template>
-  <div class="diff-view_screen" :class="tabClass" ref="screen">
-    <div v-for="line of diffLines">
-      <code class="diff-line" :class="line.className">{{ line.text }}</code>
-    </div>
-  </div>
+  <div class="diff-view_screen" :class="tabClass" ref="screen" />
 </template>
 
 <script>
-  import fs from 'fs';
   const { dialog } = require('electron').remote;
 
   export default {
@@ -18,23 +13,6 @@
       };
     },
     computed: {
-      diffLines() {
-        return this.diffText.split('\n').map((v) => {
-          let className = '';
-          if (v.charAt(0) === '+') {
-            className = 'ins';
-          } else if (v.charAt(0) === '-') {
-            className = 'del';
-          } else if (v.charAt(0) === '@') {
-            className = 'heading';
-          }
-
-          return {
-            className,
-            text: v,
-          };
-        });
-      },
       tabClass() {
         return `tab-size-${this.options.tabSize}`;
       },
@@ -43,7 +21,7 @@
       generateDiff() {
         // ファイルがなければクリア
         if (!this.currentFile.path) {
-          this.$set(this, 'diffText', '');
+          this.$set(this, 'diffText', 'No Diff');
           return;
         }
 
@@ -68,29 +46,38 @@
           this.$set(this, 'diffText', data || 'No Diff');
         });
       },
-    },
-    watch: {
-      diffText() {
+      renderDiff() {
         // スクロール位置をリセット
         this.$refs.screen.scrollTop = 0;
         this.$refs.screen.scrollLeft = 0;
+
+        // Diffを描画
+        const diff2htmlUi = new window.Diff2HtmlUI({ diff: this.diffText });
+        diff2htmlUi.draw('.diff-view_screen', {
+          outputFormat: this.options.outputFormat,
+          synchronisedScroll: true,
+        });
+        diff2htmlUi.highlightCode('.diff-view_screen');
       },
     },
-    created() {
-      this.$watch('options', this.generateDiff, {
+    watch: {
+      currentFile: {
+        handler: 'generateDiff',
         deep: true,
-      });
-      this.$watch('currentFile', this.generateDiff, {
-        deep: true,
-      });
+      },
+      'options.ignoreWhitespace': 'generateDiff',
+
+      diffText: 'renderDiff',
+      'options.outputFormat': 'renderDiff',
     },
   };
 </script>
 
 <style lang="scss">
 .diff-view_screen {
-  padding: .25em 0;
+  position: relative;
   background-color: var(--diff-bgColor);
+  border: 1px solid var(--borderColor);
   overflow: auto;
 }
 
@@ -98,28 +85,5 @@
   &2 { tab-size: 2; }
   &4 { tab-size: 4; }
   &8 { tab-size: 8; }
-}
-
-.diff-view_screen > div{
-  display: table-row;
-}
-.diff-line {
-  display: table-cell;
-  margin: 0;
-  padding: 0 .5em;
-  white-space: pre;
-
-  &.ins {
-    background-color: var(--diff-bgColor-ins);
-    color: var(--diff-fontColor-ins);
-  }
-  &.del {
-    background-color: var(--diff-bgColor-del);
-    color: var(--diff-fontColor-del);
-  }
-  &.heading {
-    padding-top: 1em;
-    opacity: .33;
-  }
 }
 </style>
