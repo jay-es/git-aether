@@ -9,6 +9,10 @@
         require('module').globalPaths.push('<%= htmlWebpackPlugin.options.appModules.replace(/\\/g, '\\\\') %>')
       </script>
     <% } %>
+    <script>window.$ = window.jQuery = require('jquery/dist/jquery.slim.min.js');</script>
+    <script>window.hljs = require('highlight.js');</script>
+    <script>require('diff2html/dist/diff2html.min.js');</script>
+    <script>require('diff2html/dist/diff2html-ui.min.js');</script>
   </head>
   <body>
     <div id="app"></div>
