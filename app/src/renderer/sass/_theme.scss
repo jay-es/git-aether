@@ -1,4 +1,4 @@
-:root{
+:root {
   $accColor: #4d89c1;
   --bgColor: #fafafa;
   --fontColor: #333;
@@ -15,13 +15,14 @@
   --btn-active-bgColor: #{rgba($accColor, .05)};
   --btn-active-color: #{desaturate(darken($accColor, 10%), 30%)};
 
-  --diff-fontColor-del: #740000;
-  --diff-fontColor-ins: #001e00;
+  // --diff-fontColor-del: #740000;
+  // --diff-fontColor-ins: #001e00;
   --diff-bgColor: #fff;
   --diff-bgColor-del: #ffecec;
   --diff-bgColor-ins: #eaffea;
   --diff-bgColor-del-word: #f8cbcb;
   --diff-bgColor-ins-word: #a6f3a6;
+  --diff-bgColor-info: #e5e5e5;
 }
 
 .dark {
@@ -41,11 +42,12 @@
   --btn-active-bgColor: #{rgba($accColor, .05)};
   --btn-active-color: #{desaturate(darken($accColor, 10%), 30%)};
 
-  --diff-fontColor-del: hsl(10, 100%, 57%); // hsl(10, 71%, 47%) #cc3e22
-  --diff-fontColor-ins: #2c2;
+  // --diff-fontColor-del: hsl(10, 100%, 57%); // hsl(10, 71%, 47%) #cc3e22
+  // --diff-fontColor-ins: #2c2;
   --diff-bgColor: #191919;
-  --diff-bgColor-del: inherit;
-  --diff-bgColor-ins: inherit;
-  --diff-bgColor-del-word: #511919;
-  --diff-bgColor-ins-word: #294c12;
+  --diff-bgColor-del: #{darken(#511919, 9%)};
+  --diff-bgColor-ins: #{darken(#294c12, 7%)};
+  --diff-bgColor-del-word: #{darken(#511919, 3%)};
+  --diff-bgColor-ins-word: #{darken(#294c12, 3%)};
+  --diff-bgColor-info: #3f3f3f;
 }
