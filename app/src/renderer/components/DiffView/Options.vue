@@ -13,6 +13,7 @@
       </label>
     </section>
 
+    <!--
     <section class="inline-block">
       <legend class="legend">Tab Size</legend>
       <label class="label block">
@@ -25,6 +26,17 @@
         <input type="radio" class="radio" value="8" v-model="options.tabSize" /> 8
       </label>
     </section>
+    -->
+
+    <section class="inline-block">
+      <legend class="legend">Output</legend>
+      <label class="label block">
+        <input type="radio" class="radio" value="line-by-line" v-model="options.outputFormat" /> Unified
+      </label>
+      <label class="label block">
+        <input type="radio" class="radio" value="side-by-side" v-model="options.outputFormat" /> Split
+      </label>
+    </section>
   </div>
 </template>
 
@@ -34,5 +46,8 @@
   };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+  .inline-block {
+    vertical-align: top;
+  }
 </style>

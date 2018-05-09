@@ -34,6 +34,7 @@
 
   const options = Object.assign({
     ignoreWhitespace: '',
+    outputFormat: 'side-by-side',
     tabSize: 4,
   }, JSON.parse(localStorage.getItem('diffOptions')));
 
