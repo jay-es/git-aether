@@ -52,23 +52,24 @@
         });
       },
     },
-    created() {
-      this.$watch('rowData.pathName', (v) => {
-        if (!v) {
-          this.caution = '';
-          return;
-        }
-
-        repos.createGitInstance(v)
-          .then(() => {
+    watch: {
+      'rowData.pathName': {
+        handler(v) {
+          if (!v) {
             this.caution = '';
-          })
-          .catch((err) => {
-            this.caution = err;
-          });
-      }, {
+            return;
+          }
+
+          repos.createGitInstance(v)
+            .then(() => {
+              this.caution = '';
+            })
+            .catch((err) => {
+              this.caution = err;
+            });
+        },
         immediate: true,
-      });
+      },
     },
   };
 </script>

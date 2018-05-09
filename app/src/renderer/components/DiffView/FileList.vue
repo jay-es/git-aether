@@ -164,20 +164,22 @@
         return tmpObj;
       },
     },
-    created() {
-      this.$watch('row.statusSummary.files', () => {
-        this.getStatusAll();
-        this.currentFile.timestamp = Date.now();
-      }, {
+    watch: {
+      'row.statusSummary.files': {
+        handler() {
+          this.getStatusAll();
+          this.currentFile.timestamp = Date.now();
+        },
         deep: true,
         immediate: true,
-      });
-      this.$watch('files', () => {
-        this.$emit('changeStaged', this.files.some(v => v.hasStaged));
-      }, {
+      },
+      files: {
+        handler() {
+          this.$emit('changeStaged', this.files.some(v => v.hasStaged));
+        },
         deep: true,
         immediate: true,
-      });
+      },
     },
   };
 </script>

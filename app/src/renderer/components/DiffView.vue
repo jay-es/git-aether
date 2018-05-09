@@ -64,12 +64,13 @@
         return store.tableData[this.rowIndex];
       },
     },
-    created() {
-      this.$watch('options', (v) => {
-        localStorage.setItem('diffOptions', JSON.stringify(v));
-      }, {
+    watch: {
+      options: {
+        handler(v) {
+          localStorage.setItem('diffOptions', JSON.stringify(v));
+        },
         deep: true,
-      });
+      },
     },
   };
 </script>
