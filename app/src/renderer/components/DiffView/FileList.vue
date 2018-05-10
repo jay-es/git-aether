@@ -1,5 +1,5 @@
 <template>
-  <div class="diff-view_file-list">
+  <div class="diff-view_file-list" v-if="row">
     <header class="diff-view_file-list_header">{{ row.pathName }}<br>{{ currentBranch }}</header>
     <p class="diff-view_file-list_title">Unstaged Changes</p>
     <ul class="list diff-view_file-list_list">
@@ -51,7 +51,8 @@
     },
     computed: {
       currentBranch() {
-        return this.row.localBranches.filter(v => v.current)[0].name;
+        const cb = this.row.localBranches.find(v => v.current);
+        return cb ? cb.name : '';
       },
     },
     methods: {
@@ -167,6 +168,8 @@
     watch: {
       'row.statusSummary.files': {
         handler() {
+          if (!this.row) return;
+
           this.getStatusAll();
           this.currentFile.timestamp = Date.now();
         },
