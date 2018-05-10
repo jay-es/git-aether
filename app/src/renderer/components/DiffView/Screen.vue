@@ -51,8 +51,23 @@
         this.$refs.screen.scrollTop = 0;
         this.$refs.screen.scrollLeft = 0;
 
+        // 先頭のタブ（もしくはスペース4つ）を削除
+        let minTabCount = 1e5;
+        const diffLines = this.diffText.split('\n')
+          .map(v => v.replace(/^([ +-])( +)/, (match, p1, p2) => p1 + p2.replace(/ {4}/g, '\t')))
+          .map((v, i) => {
+            const match = v.match(/^[ +-](\t*)[^\t]/);
+            if (match && i > 4) {
+              minTabCount = Math.min(minTabCount, match[1].length);
+            }
+
+            return v;
+          })
+          .map(v => v.replace(/^([ +-])(\t+)/, (match, p1, p2) => p1 + p2.substr(minTabCount)))
+          .join('\n');
+
         // Diffを描画
-        const diff2htmlUi = new window.Diff2HtmlUI({ diff: this.diffText });
+        const diff2htmlUi = new window.Diff2HtmlUI({ diff: diffLines });
         diff2htmlUi.draw('.diff-view_screen', {
           matching: 'lines',
           outputFormat: this.options.outputFormat,
