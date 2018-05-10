@@ -136,22 +136,22 @@
 
 .d2h-code-line del,
 .d2h-code-side-line del {
-  display: inline-block;
-  margin-top: -1px;
+  // display: inline-block;
+  // margin-top: -1px;
   text-decoration: none;
   // background-color: #ffb6ba;
   background-color: var(--diff-bgColor-del-word);
-  border-radius: 0.2em;
+  // border-radius: 0.2em;
 }
 
 .d2h-code-line ins,
 .d2h-code-side-line ins {
-  display: inline-block;
-  margin-top: -1px;
+  // display: inline-block;
+  // margin-top: -1px;
   text-decoration: none;
   // background-color: #97f295;
   background-color: var(--diff-bgColor-ins-word);
-  border-radius: 0.2em;
+  // border-radius: 0.2em;
   text-align: left;
 }
 
@@ -161,6 +161,7 @@
   padding: 0;
   word-wrap: normal;
   white-space: pre;
+  opacity: .4; // added
 }
 
 .d2h-code-line-ctn {
@@ -242,6 +243,22 @@
   background-color: var(--diff-bgColor-info);
   // color: rgba(0, 0, 0, 0.3);
   // border-color: #d5e4f2;
+}
+
+// added
+td.d2h-info {
+  vertical-align: top;
+}
+div.d2h-info {
+  position: absolute;
+  right: 0;
+  left: 0;
+  margin-left: 0;
+  overflow-x: hidden;
+
+  &:not(:empty) {
+    z-index: 1;
+  }
 }
 
 // .d2h-file-diff .d2h-del.d2h-change {

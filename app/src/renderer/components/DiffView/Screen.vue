@@ -54,6 +54,7 @@
         // Diffを描画
         const diff2htmlUi = new window.Diff2HtmlUI({ diff: this.diffText });
         diff2htmlUi.draw('.diff-view_screen', {
+          matching: 'lines',
           outputFormat: this.options.outputFormat,
           synchronisedScroll: true,
         });

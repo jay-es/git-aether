@@ -93,8 +93,8 @@
 }
 .diff-view_column {
   &:nth-child(odd) {
-    flex-basis: 20%;
-    min-width: 200px;
+    flex-shrink: 0;
+    width: 200px;
   }
   &:nth-child(even) {
     flex-grow: 1;

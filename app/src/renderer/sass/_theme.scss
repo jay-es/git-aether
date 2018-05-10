@@ -45,9 +45,9 @@
   // --diff-fontColor-del: hsl(10, 100%, 57%); // hsl(10, 71%, 47%) #cc3e22
   // --diff-fontColor-ins: #2c2;
   --diff-bgColor: #191919;
-  --diff-bgColor-del: #{darken(#511919, 9%)};
-  --diff-bgColor-ins: #{darken(#294c12, 7%)};
-  --diff-bgColor-del-word: #{darken(#511919, 3%)};
-  --diff-bgColor-ins-word: #{darken(#294c12, 3%)};
+  --diff-bgColor-del: #{darken(#511919, 5%)};
+  --diff-bgColor-ins: #{darken(#294c12, 5%)};
+  --diff-bgColor-del-word: #{lighten(#511919, 2%)};
+  --diff-bgColor-ins-word: #{lighten(#294c12, 2%)};
   --diff-bgColor-info: #3f3f3f;
 }
