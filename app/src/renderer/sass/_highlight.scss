@@ -81,6 +81,10 @@
   border-collapse: collapse;
   font-family: "Menlo", "Consolas", monospace;
   font-size: 13px;
+
+  & * {
+    font-family: "Menlo", "Consolas", monospace;
+  }
 }
 
 .d2h-diff-tbody > tr > td {
