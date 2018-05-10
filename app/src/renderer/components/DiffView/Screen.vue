@@ -1,5 +1,12 @@
 <template>
-  <div class="diff-view_screen" :class="tabClass" ref="screen" />
+  <div class="diff-view_screen" :class="tabClass" ref="screen">
+    <div v-show="isSimple" class="simple-diff" key="simple-diff">
+      <template v-for="line of simpleDiffLines">
+        <code class="simple-diff-line" :class="line.className">{{ line.text }}</code>
+      </template>
+    </div>
+    <div v-show="!isSimple" class="diff2html" key="diff2html" />
+  </div>
 </template>
 
 <script>
@@ -10,11 +17,14 @@
     data() {
       return {
         diffText: '',
+        isSimple: true,
+        simpleDiffLines: [],
       };
     },
     computed: {
       tabClass() {
-        return `tab-size-${this.options.tabSize}`;
+        return 'tab-size-4';
+        // return `tab-size-${this.options.tabSize}`;
       },
     },
     methods: {
@@ -66,14 +76,33 @@
           .map(v => v.replace(/^([ +-])(\t+)/, (match, p1, p2) => p1 + p2.substr(minTabCount)))
           .join('\n');
 
+        // 量が多い場合は簡易表示
+        if (this.diffText.length > 1e5) {
+          const classNames = {
+            '+': 'ins',
+            '-': 'del',
+            '@': 'heading',
+          };
+
+          this.simpleDiffLines = diffLines.split('\n')
+            .map((text) => ({
+              text,
+              className: classNames[text[0]],
+            }));
+
+          this.isSimple = true;
+          return;
+        }
+
         // Diffを描画
         const diff2htmlUi = new window.Diff2HtmlUI({ diff: diffLines });
-        diff2htmlUi.draw('.diff-view_screen', {
+        diff2htmlUi.draw('.diff2html', {
           matching: 'lines',
           outputFormat: this.options.outputFormat,
           synchronisedScroll: true,
         });
-        diff2htmlUi.highlightCode('.diff-view_screen');
+        diff2htmlUi.highlightCode('.diff2html');
+        this.isSimple = false;
       },
     },
     watch: {
@@ -101,5 +130,24 @@
   &2 { tab-size: 2; }
   &4 { tab-size: 4; }
   &8 { tab-size: 8; }
+}
+
+.simple-diff {
+  margin: .5em;
+}
+.simple-diff-line {
+  display: block;
+  white-space: pre;
+
+  &.ins {
+    color: var(--diff-fontColor-ins);
+  }
+  &.del {
+    color: var(--diff-fontColor-del);
+  }
+  &.heading {
+    padding-top: 1em;
+    opacity: .33;
+  }
 }
 </style>

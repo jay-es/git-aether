@@ -15,8 +15,8 @@
   --btn-active-bgColor: #{rgba($accColor, .05)};
   --btn-active-color: #{desaturate(darken($accColor, 10%), 30%)};
 
-  // --diff-fontColor-del: #740000;
-  // --diff-fontColor-ins: #001e00;
+  --diff-fontColor-del: #740000;
+  --diff-fontColor-ins: #001e00;
   --diff-bgColor: #fff;
   --diff-bgColor-del: #ffecec;
   --diff-bgColor-ins: #eaffea;
@@ -42,8 +42,8 @@
   --btn-active-bgColor: #{rgba($accColor, .05)};
   --btn-active-color: #{desaturate(darken($accColor, 10%), 30%)};
 
-  // --diff-fontColor-del: hsl(10, 100%, 57%); // hsl(10, 71%, 47%) #cc3e22
-  // --diff-fontColor-ins: #2c2;
+  --diff-fontColor-del: hsl(10, 100%, 57%); // hsl(10, 71%, 47%) #cc3e22
+  --diff-fontColor-ins: #2c2;
   --diff-bgColor: #191919;
   --diff-bgColor-del: #{darken(#511919, 5%)};
   --diff-bgColor-ins: #{darken(#294c12, 5%)};
