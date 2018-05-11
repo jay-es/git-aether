@@ -11,6 +11,7 @@
 
 <script>
   const { dialog } = require('electron').remote;
+  const NO_DIFF = 'No Diff';
 
   export default {
     props: ['currentFile', 'options', 'row'],
@@ -31,7 +32,7 @@
       generateDiff() {
         // ファイルがなければクリア
         if (!this.currentFile.path) {
-          this.$set(this, 'diffText', 'No Diff');
+          this.diffText = NO_DIFF;
           return;
         }
 
@@ -53,7 +54,7 @@
         this.row.rep.raw(options, (err, data) => {
           if (err) { dialog.showErrorBox('', err); return; }
 
-          this.$set(this, 'diffText', data || 'No Diff');
+          this.diffText = data || NO_DIFF;
         });
       },
       renderDiff() {
@@ -76,8 +77,8 @@
           .map(v => v.replace(/^([ +-])(\t+)/, (match, p1, p2) => p1 + p2.substr(minTabCount)))
           .join('\n');
 
-        // 量が多い場合は簡易表示
-        if (this.diffText.length > 1e5) {
+        // 簡易表示（差分がない場合｜|量が多い場合）
+        if (diffLines === NO_DIFF || diffLines.length > 1e5) {
           const classNames = {
             '+': 'ins',
             '-': 'del',
