@@ -1,5 +1,8 @@
 <template>
-  <div class="diff-view_file-list" v-if="row">
+  <div class="diff-view_file-list" v-if="row"
+    @keyup="moveCursor"
+    tabindex="-1"
+  >
     <header class="diff-view_file-list_header">{{ row.pathName }}<br>{{ currentBranch }}</header>
     <p class="diff-view_file-list_title">Unstaged Changes</p>
     <ul class="list diff-view_file-list_list">
@@ -61,6 +64,30 @@
         this.currentFile.isCached = isCached;
         this.currentFile.isUntracked = file.index === '?';
         this.currentFile.timestamp = Date.now();
+      },
+
+      // 上下キーでカレントファイル変更
+      moveCursor(e) {
+        const { key } = e;
+
+        if (key !== 'ArrowUp' && key !== 'ArrowDown') return;
+
+        const { currentFile, files } = this;
+        const currentIndex = files.findIndex(v => v.path === currentFile.path);
+        const otherFiles = [...files.slice(currentIndex + 1), ...files.slice(0, currentIndex)];
+
+        if (key === 'ArrowUp') {
+          otherFiles.reverse();
+        }
+
+        otherFiles.some((v) => {
+          if (currentFile.isCached ? v.hasStaged : v.hasUnstaged) {
+            this.setCurrent(v, currentFile.isCached);
+            return true; // ループ終了
+          }
+
+          return false;
+        });
       },
 
       menu(file, i) {
