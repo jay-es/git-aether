@@ -63,7 +63,7 @@
         this.$refs.screen.scrollLeft = 0;
 
         // 先頭のタブ（もしくはスペース4つ）を削除
-        let minTabCount = 1e5;
+        let minTabCount = Infinity;
         const diffLines = this.diffText.split('\n')
           .map(v => v.replace(/^([ +-])( +)/, (match, p1, p2) => p1 + p2.replace(/ {4}/g, '\t')))
           .map((v, i) => {
@@ -135,6 +135,7 @@
 
 .simple-diff {
   margin: .5em;
+  font-size: 12px;
 }
 .simple-diff-line {
   display: block;
