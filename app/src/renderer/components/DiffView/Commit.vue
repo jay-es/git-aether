@@ -6,11 +6,12 @@
     ></textarea>
 
     <div class="diff-view_commit_buttons">
+      <button class="block" @click="remote('pull')">Pull</button>
       <button class="block"
         :disabled="!comment || !hasStaged"
         @click="commit"
       >Commit</button>
-      <button class="block" @click="push">Push</button>
+      <button class="block" @click="remote('push')">Push</button>
       <button class="block" @click="back">Back</button>
     </div>
   </div>
@@ -41,14 +42,14 @@
           }
         });
       },
-      push() {
+      remote(methodName) {
         const listClass = document.documentElement.classList;
         listClass.add('is-processing');
 
-        const currentBranch = this.row.localBranches.filter(v => v.current);
+        const currentBranch = this.row.localBranches.find(v => v.current);
         if (!currentBranch) return;
 
-        this.row.rep.push('origin', currentBranch[0].name, (err) => {
+        this.row.rep[methodName]('origin', currentBranch.name, (err) => {
           if (err) { dialog.showErrorBox('', err); }
 
           listClass.remove('is-processing');
@@ -74,8 +75,7 @@
   padding-left: .25em;
 
   button {
-    padding-top: 4px;
-    padding-bottom: 6px;
+    line-height: 14px;
   }
 }
 </style>
