@@ -7,6 +7,7 @@ export default (file, i, that) => {
   Menu.buildFromTemplate([
     {
       label: 'Discard Changes',
+      enabled: !file.hasStaged,
       click: () => {
         dialog.showMessageBox({
           type: 'question',
