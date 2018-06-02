@@ -1,5 +1,7 @@
-const { Menu, dialog } = require('electron').remote;
+import path from 'path';
+import { shell, remote } from 'electron';
 import store from '../../LandingPageView/scripts/store';
+const { Menu, dialog } = remote;
 
 export default (file, i, that) => {
   Menu.buildFromTemplate([
@@ -14,6 +16,13 @@ export default (file, i, that) => {
         }, (res) => {
           // No なら終了
           if (res === 1) return;
+
+          // 新規ファイルなら削除
+          if (file.working_dir === '?') {
+            const fullpath = `${that.row.pathName}/${file.path}`.replace(/\//g, path.sep);
+            shell.moveItemToTrash(fullpath);
+            return;
+          }
 
           const options = ['checkout', file.path];
           that.row.rep.raw(options, (err) => {
