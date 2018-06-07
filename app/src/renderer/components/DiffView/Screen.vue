@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  const { dialog } = require('electron').remote;
+  import { gitRaw } from 'renderer/scripts/helpers';
   const NO_DIFF = 'No Diff';
 
   export default {
@@ -29,7 +29,7 @@
       },
     },
     methods: {
-      generateDiff() {
+      async generateDiff() {
         // ファイルがなければクリア
         if (!this.currentFile.path) {
           this.diffText = NO_DIFF;
@@ -38,9 +38,10 @@
 
         // 新規ファイルの場合
         if (this.currentFile.isUntracked) {
-          this.row.rep.raw(['add', '-N', this.currentFile.path], () => {
-            this.row.rep.raw(['reset', 'HEAD', this.currentFile.path]);
-          });
+          gitRaw(this.row, ['add', '-N', this.currentFile.path])
+            .then(() => {
+              gitRaw(this.row, ['reset', 'HEAD', this.currentFile.path]);
+            });
         }
 
         const options = [
@@ -51,11 +52,8 @@
           this.currentFile.path,
         ].filter(v => v !== null);
 
-        this.row.rep.raw(options, (err, data) => {
-          if (err) { dialog.showErrorBox('', err); return; }
-
-          this.diffText = data || NO_DIFF;
-        });
+        const data = await gitRaw(this.row, options);
+        this.diffText = data || NO_DIFF;
       },
       renderDiff() {
         // スクロール位置をリセット

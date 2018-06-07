@@ -15,6 +15,7 @@
 </template>
 
 <script>
+  import { gitRaw } from 'renderer/scripts/helpers';
   import eventHub from '../scripts/eventHub';
   const { Menu, dialog } = require('electron').remote;
 
@@ -118,14 +119,12 @@
                       message: 'The branch is not fully merged.',
                       detail: detailText + branch.name,
                       buttons: ['Yes', 'No'],
-                    }, (res) => {
+                    }, async (res) => {
                       // No なら終了
                       if (res === 1) return;
 
-                      this.row.rep.raw(['branch', '-D', branch.name], (err) => {
-                        if (err) { dialog.showErrorBox('', err); return; }
-                        this.$emit('update');
-                      });
+                      await gitRaw(this.row, ['branch', '-D', branch.name]);
+                      this.$emit('update');
                     });
                     return;
                   }

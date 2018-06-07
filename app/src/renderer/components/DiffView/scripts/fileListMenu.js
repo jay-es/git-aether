@@ -1,5 +1,6 @@
 import path from 'path';
 import { shell, remote } from 'electron';
+import { gitRaw } from 'renderer/scripts/helpers';
 import store from '../../LandingPageView/scripts/store';
 const { Menu, dialog } = remote;
 
@@ -14,7 +15,7 @@ export default (file, i, that) => {
           message: 'Reset changes?',
           detail: `${file.path}\n\nContinue with resetting the current changes?`,
           buttons: ['Yes', 'No'],
-        }, (res) => {
+        }, async (res) => {
           // No なら終了
           if (res === 1) return;
 
@@ -25,12 +26,8 @@ export default (file, i, that) => {
             return;
           }
 
-          const options = ['checkout', file.path];
-          that.row.rep.raw(options, (err) => {
-            if (err) { dialog.showErrorBox('', err); return; }
-
-            store.status(that.row.index);
-          });
+          await gitRaw(that.row, ['checkout', file.path]);
+          store.status(that.row.index);
         });
       },
     },
@@ -38,12 +35,12 @@ export default (file, i, that) => {
       label: 'Difftool',
       click: () => {
         const options = ['difftool', file.path];
+
         if (file.hasStaged) {
           options.splice(1, 0, '--cached');
         }
-        that.row.rep.raw(options, (err) => {
-          if (err) { dialog.showErrorBox('', err); return; }
-        });
+
+        gitRaw(that.row, options);
       },
     },
   ]).popup();

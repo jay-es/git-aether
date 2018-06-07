@@ -25,9 +25,9 @@
 </template>
 
 <script>
+  import { gitRaw } from 'renderer/scripts/helpers';
   import store from '../scripts/store';
   import { backdrop, closeDialog, openDialog } from './helper';
-  const { dialog } = require('electron').remote;
 
   export default {
     props: ['row', 'branchName'],
@@ -45,18 +45,16 @@
       backdrop,
       closeDialog,
       openDialog,
-      exec() {
-        this.row.rep.raw([
+      async exec() {
+        await gitRaw(this.row, [
           'branch',
           '-m',
           this.branchName,
           this.newName,
-        ], (err) => {
-          if (err) { dialog.showErrorBox('', err); return; }
+        ]);
 
-          store.getBranch(this.row.index);
-          this.closeDialog();
-        });
+        store.getBranch(this.row.index);
+        this.closeDialog();
       },
       reset() {
         this.newName = '';

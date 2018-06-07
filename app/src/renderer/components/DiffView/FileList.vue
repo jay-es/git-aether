@@ -42,7 +42,7 @@
 </template>
 
 <script>
-  const { dialog } = require('electron').remote;
+  import { gitRaw } from 'renderer/scripts/helpers';
   import fileListMenu from './scripts/fileListMenu';
 
   export default {
@@ -94,79 +94,62 @@
         fileListMenu(file, i, this);
       },
 
-      stage(file, i) {
+      async stage(file, i) {
         file.hasStaged = true;
         file.hasUnstaged = false;
-        this.row.rep.raw(['add', file.path], (err) => {
-          if (err) { dialog.showErrorBox('', err); return; }
 
-          this.getStatus(file, i).then(() => {
-            if (file.path !== this.currentFile.path) return;
-            this.setCurrent(this.files[i], true);
-          });
-        });
+        await gitRaw(this.row, ['add', file.path]);
+        await this.getStatus(file, i);
+        if (file.path !== this.currentFile.path) return;
+        this.setCurrent(this.files[i], true);
       },
-      unstage(file, i) {
+      async unstage(file, i) {
         file.hasStaged = false;
         file.hasUnstaged = true;
-        this.row.rep.raw(['reset', 'HEAD', file.path], (err) => {
-          if (err) { dialog.showErrorBox('', err); return; }
 
-          this.getStatus(file, i).then(() => {
-            if (file.path !== this.currentFile.path) return;
-            this.setCurrent(this.files[i], false);
-          });
+        await gitRaw(this.row, ['reset', 'HEAD', file.path]);
+        await this.getStatus(file, i);
+        if (file.path !== this.currentFile.path) return;
+        this.setCurrent(this.files[i], false);
+      },
+
+      async stageAll() {
+        await gitRaw(this.row, ['add', '-A']);
+        await this.getStatusAll();
+
+        this.files.forEach((file, i) => {
+          if (file.path !== this.currentFile.path) return;
+          this.setCurrent(this.files[i], true);
+        });
+      },
+      async unstageAll() {
+        await gitRaw(this.row, ['reset', 'HEAD']);
+        await this.getStatusAll();
+
+        this.files.forEach((file, i) => {
+          if (file.path !== this.currentFile.path) return;
+          this.setCurrent(this.files[i], false);
         });
       },
 
-      stageAll() {
-        this.row.rep.raw(['add', '-A'], (err) => {
-          if (err) { dialog.showErrorBox('', err); return; }
-
-          this.getStatusAll().then(() => {
-            this.files.forEach((file, i) => {
-              if (file.path !== this.currentFile.path) return;
-              this.setCurrent(this.files[i], true);
-            });
-          });
-        });
+      async getStatus(file, i) {
+        const data = await gitRaw(this.row, ['status', '--short', '-u', file.path]);
+        this.$set(this.files, i, this.getStatusInner(data));
       },
-      unstageAll() {
-        this.row.rep.raw(['reset', 'HEAD'], (err) => {
-          if (err) { dialog.showErrorBox('', err); return; }
+      async getStatusAll() {
+        const data = await gitRaw(this.row, ['status', '--short', '-u']);
 
-          this.getStatusAll().then(() => {
-            this.files.forEach((file, i) => {
-              if (file.path !== this.currentFile.path) return;
-              this.setCurrent(this.files[i], false);
-            });
-          });
-        });
-      },
+        // データがなければ空の配列をセット
+        if (!data) {
+          this.$set(this, 'files', []);
+          return;
+        }
 
-      getStatus(file, i) {
-        return this.row.rep.raw(['status', '--short', '-u', file.path], (err, data) => {
-          if (err) { dialog.showErrorBox('', err); return; }
-
-          this.$set(this.files, i, this.getStatusInner(data));
-        });
-      },
-      getStatusAll() {
-        return this.row.rep.raw(['status', '--short', '-u'], (err, data) => {
-          if (err) { dialog.showErrorBox('', err); return; }
-
-          // データがなければ空の配列をセット
-          if (!data) {
-            this.$set(this, 'files', []);
-            return;
-          }
-
-          this.$set(this, 'files', data.split('\n')
-            .filter(v => v)
-            .map(this.getStatusInner)
-            .sort((a, b) => (a.path.toLowerCase() > b.path.toLowerCase() ? 1 : -1))
-          );
-        });
+        this.$set(this, 'files', data.split('\n')
+          .filter(v => v)
+          .map(this.getStatusInner)
+          .sort((a, b) => (a.path.toLowerCase() > b.path.toLowerCase() ? 1 : -1))
+        );
       },
       getStatusInner(line) {
         const index = line.substr(0, 1);
