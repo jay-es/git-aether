@@ -43,7 +43,7 @@
         });
       },
       remote(methodName) {
-        const listClass = document.documentElement.classList;
+        const listClass = this.$el.classList;
         listClass.add('is-processing');
 
         const currentBranch = this.row.localBranches.find(v => v.current);
