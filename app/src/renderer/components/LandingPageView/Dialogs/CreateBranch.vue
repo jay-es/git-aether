@@ -31,6 +31,10 @@
         <input type="checkbox" class="checkbox" v-model="fetchingTrackingBranch" :disabled="isLocal"/>
         Fetching Tracking Branch
       </label>
+      <label class="label">
+        <input type="checkbox" class="checkbox" v-model="createRemoteBranch" :disabled="nameType === 'auto'"/>
+        Create Remote Branch
+      </label>
     </fieldset>
 
     <footer class="dialog-footer">
@@ -48,8 +52,12 @@
   const { dialog } = require('electron').remote;
 
   function onChange() {
-    if (this.nameType === 'manual') return;
+    if (this.nameType === 'manual') {
+      this.createRemoteBranch = true;
+      return;
+    }
 
+    this.createRemoteBranch = false;
     this.newBranchName = (this.targetBranch.substr(0, 7) === 'origin/')
         ? this.targetBranch.substr(7)
         : this.targetBranch;
@@ -60,6 +68,7 @@
     newBranchName: 'master',
     targetBranch: 'origin/master',
     fetchingTrackingBranch: true,
+    createRemoteBranch: false,
   };
 
   export default {
@@ -98,7 +107,7 @@
               if (err) { dialog.showErrorBox('', err); return; }
             });
           })
-          .then(() => {
+          .then(() => (
             this.row.rep.checkoutBranch(this.newBranchName, this.targetBranch, (err) => {
               this.$el.classList.remove('is-processing');
 
@@ -106,6 +115,14 @@
 
               store.getBranch(this.row.index);
               this.closeDialog();
+            })
+          ))
+          .then(() => {
+            if (!this.createRemoteBranch) return null;
+
+            return this.row.rep.push('origin', this.newBranchName, { '-u': null }, (err) => {
+              if (err) { dialog.showErrorBox('', err); return; }
+              store.getBranch(this.row.index);
             });
           });
       },
